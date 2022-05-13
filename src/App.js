@@ -1,10 +1,13 @@
 import "./App.css";
 import { RouterPath } from "RouterPath";
+import Container from "@mui/material/Container";
 
 function App() {
   return (
     <div className="App">
-      <RouterPath />
+      <Container maxWidth="lg">
+        <RouterPath />
+      </Container>
     </div>
   );
 }
