@@ -1,0 +1,22 @@
+.comment_container {
+  display: flex;
+  margin: 0.5rem 0;
+}
+.comment_div {
+  margin: 0 0.5rem;
+  width: 100%;
+  border-radius: 5px;
+}
+.profile_name,
+.comment_text {
+  margin: 0;
+}
+.profile_name {
+  padding: 0 0.5rem;
+  font-weight: 600;
+  font-size: 1rem;
+}
+.comment_text {
+  padding: 0.5rem;
+  font-family: "Quicksand";
+}
