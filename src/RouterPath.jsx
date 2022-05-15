@@ -7,6 +7,7 @@ import {
   Landing,
   Profile,
   NotFound,
+  Home,
 } from "pages";
 export const RouterPath = () => {
   return (
@@ -15,6 +16,7 @@ export const RouterPath = () => {
         <Route path="/" element={<Landing />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/feed" element={<Home />} />
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />

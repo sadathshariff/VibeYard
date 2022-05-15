@@ -31,7 +31,9 @@ export const Signup = () => {
           </div>
 
           <div className="form-button-divs">
-            <Button variant="contained">SignUp</Button>
+            <Button variant="contained" fullWidth>
+              SignUp
+            </Button>
           </div>
           <Link to="/login">
             <p align="center">Already a User | Login</p>
