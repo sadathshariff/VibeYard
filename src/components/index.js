@@ -5,3 +5,4 @@ export { ModalComp } from "./Modal/Modal";
 export { Card } from "./Card/Card";
 export { BottomNav } from "./BottomNav/BottomNav";
 export { Comment } from "./Comment/Comment";
+export { ProfileModal } from "./ProfileModal/ProfileModal";
