@@ -1,5 +1,6 @@
 export { Login } from "./Auth/Login";
 export { Signup } from "./Auth/Signup";
+export { Home } from "./Home/Home";
 export { Bookmark } from "./Bookmark/Bookmark";
 export { Explore } from "./Explore/Explore";
 export { Landing } from "./Landing/Landing";

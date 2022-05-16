@@ -27,9 +27,11 @@ export const Login = () => {
           </div>
 
           <div className="form-button-divs">
-            <Button variant="contained">Login</Button>
+            <Button variant="contained" fullWidth>
+              Login
+            </Button>
             <p align="center">OR</p>
-            <Button variant="outlined" color="success">
+            <Button variant="contained" color="success" fullWidth>
               Guest Login
             </Button>
           </div>

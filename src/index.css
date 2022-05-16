@@ -4,13 +4,22 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background-color: var(--background-color);
   color: var(--text-color);
+  background: linear-gradient(
+    -45deg,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #ee9d9d
+  );
+  /* overflow: hidden; */
+  color: #fff;
 }
 
 :root {
   --background-color: #f5f5f5;
-  --text-color: #575151;
+  --text-color: #111111;
   --dark-bg: #40514e;
   --dark-bg-text: #fff4e3;
   --primary-color: #2f89fc;
@@ -29,4 +38,34 @@ img {
 a {
   text-decoration: none;
   color: inherit;
+}
+.list {
+  list-style-type: none;
+  padding-inline-start: 0;
+}
+
+.ml-auto {
+  margin-left: auto;
+}
+.mr-auto {
+  margin-right: auto;
+}
+.flex {
+  display: flex;
+}
+.flex-wrap {
+  flex-wrap: wrap;
+}
+.align-center {
+  align-items: center;
+}
+.justify-sb {
+  justify-content: space-between;
+}
+p-sm {
+  padding: 0.5rem;
+}
+
+.text-dark {
+  color: var(--text-color);
 }
