@@ -31,7 +31,7 @@ export const Login = () => {
               Login
             </Button>
             <p align="center">OR</p>
-            <Button variant="outlined" color="success" fullWidth>
+            <Button variant="contained" color="success" fullWidth>
               Guest Login
             </Button>
           </div>

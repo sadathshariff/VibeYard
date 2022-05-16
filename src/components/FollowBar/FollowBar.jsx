@@ -43,9 +43,9 @@ export const FollowBar = () => {
         <ul className="list">
           {people?.map(({ id, name }) => (
             <li key={id} className={`${styles.user_info}`}>
-              <Avatar alt={name} src="/static/images/avatar/2.jpg" />
+              <Avatar alt={name} />
               <p>{name}</p>
-              <Button variant="outlined" color="secondary">
+              <Button variant="contained" >
                 Follow
               </Button>
             </li>

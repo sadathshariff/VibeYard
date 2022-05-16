@@ -4,8 +4,17 @@ html {
   scroll-behavior: smooth;
 }
 body {
-  background-color: var(--background-color);
   color: var(--text-color);
+  background: linear-gradient(
+    -45deg,
+    #5851db,
+    #833ab4,
+    #c13584,
+    #e1306c,
+    #ee9d9d
+  );
+  /* overflow: hidden; */
+  color: #fff;
 }
 
 :root {
@@ -55,4 +64,8 @@ a {
 }
 p-sm {
   padding: 0.5rem;
+}
+
+.text-dark {
+  color: var(--text-color);
 }

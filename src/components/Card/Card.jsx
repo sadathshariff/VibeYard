@@ -55,7 +55,7 @@ export const Card = () => {
                 placeholder="Write your Comment !"
                 className={`${styles.card_comment_input}`}
               />
-              <Button variant="outlined" color="success" sx={style}>
+              <Button variant="contained" color="success" sx={style}>
                 Send
               </Button>
             </div>

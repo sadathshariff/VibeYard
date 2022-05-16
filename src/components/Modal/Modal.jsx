@@ -9,7 +9,7 @@ const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
-  transform: "translate(-50%, -50%)",  
+  transform: "translate(-50%, -50%)",
   bgcolor: "background.paper",
   boxShadow: `var(--light-shadow)`,
   p: 3,
@@ -24,9 +24,9 @@ export const ModalComp = () => {
   return (
     <>
       <div>
-        <h3 onClick={handleOpen} className={`${styles.modal_heading}`}>
+        <h2 onClick={handleOpen} className={`${styles.modal_heading}`}>
           <FiPlusCircle /> What's vibing?
-        </h3>
+        </h2>
         <Modal
           open={open}
           onClose={handleClose}
@@ -34,7 +34,7 @@ export const ModalComp = () => {
           aria-describedby="modal-modal-description"
         >
           <Box sx={style}>
-            <h3>What's on your Mind Today?</h3>
+            <h3 className="text-dark">What's on your Mind Today?</h3>
             <div className={`${styles.modal_div}`}>
               <textarea
                 className={`${styles.modal_text}`}

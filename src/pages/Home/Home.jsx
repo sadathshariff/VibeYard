@@ -22,9 +22,9 @@ export const Home = () => {
           <div className=" flex align-center p-sm">
             <h3>Sort By:</h3>
             <Stack direction="row" spacing={1} margin={1}>
-              <Chip label="Trending" color="primary" variant="outlined" />
-              <Chip label="Latest" color="success" variant="outlined" />
-              <Chip label="Oldest" color="success" variant="outlined" />
+              <Chip label="Trending" color="primary" variant="contained" />
+              <Chip label="Latest" color="success" variant="contained" />
+              <Chip label="Oldest" color="success" variant="contained" />
             </Stack>
           </div>
           <Card />

@@ -5,7 +5,7 @@ export const Comment = () => {
     <>
       <div className={`${styles.comment_container}`}>
         <div className={`${styles.comment_user}`}>
-          <Avatar alt="User Profile" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="User Profile" />
         </div>
         <div className={`${styles.comment_div}`}>
           <p className={`${styles.profile_name}`}>Sadathulla Shariff</p>
