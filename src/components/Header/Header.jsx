@@ -1,10 +1,13 @@
 import styles from "./Header.module.css";
 import Avatar from "@mui/material/Avatar";
+import { Link } from "react-router-dom";
 export const Header = () => {
   return (
     <header className={`${styles.header}`}>
       <div className={`${styles.heading}`}>
-        <h1>VibeYard</h1>
+        <Link to="/feed">
+          <h1>VibeYard</h1>
+        </Link>
       </div>
       <div className={`${styles.input_search_div}`}>
         <input
@@ -14,7 +17,7 @@ export const Header = () => {
         />
       </div>
       <div className={`${styles.user_avatar}`}>
-        <Avatar alt="User Profile" src="/static/images/avatar/1.jpg" />
+        <Avatar alt="User Profile" />
       </div>
     </header>
   );
