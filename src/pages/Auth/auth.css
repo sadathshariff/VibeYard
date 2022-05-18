@@ -25,14 +25,21 @@
   border: none;
   margin: 0.5rem 0;
   box-shadow: var(--light-shadow);
+  font-size: 1rem;
+  font-weight: 500;
+  font-family: "Quicksand", sans-serif;
 }
 
 .form-button-divs {
   width: 60%;
   margin: 1rem auto;
 }
-Button {
-  width: -webkit-fill-available;
+
+.error-msg {
+  margin-top: 0;
+  font-weight: 500;
+  font-family: "Quicksand", sans-serif;
+  color: var(--text-color);
 }
 
 @media screen and (max-width: 760px) {
