@@ -7,12 +7,20 @@ import {
   Card,
   BottomNav,
   ProfileModal,
+  Followers,
+  Following,
 } from "components";
 import { Box, Avatar, Button } from "@mui/material";
 export const Profile = () => {
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
+
+  const [openFollowers, setOpenFollowers] = useState(false);
+  const handleFollowersModal = () => setOpenFollowers((prev) => !prev);
+
+  const [openFollowing, setOpenFollowing] = useState(false);
+  const handleFollowingModal = () => setOpenFollowing((prev) => !prev);
   return (
     <>
       <Header />
@@ -69,10 +77,15 @@ export const Profile = () => {
                 alignItems: "center",
                 px: 2,
                 flexDirection: "column",
+                cursor: "pointer",
               }}
             >
               <h3>20</h3>
-              <h3>Followers</h3>
+              <h3 onClick={handleFollowersModal}>Followers</h3>
+              <Followers
+                open={openFollowers}
+                handleClose={handleFollowersModal}
+              />
             </Box>
             <Box
               sx={{
@@ -93,10 +106,15 @@ export const Profile = () => {
                 alignItems: "center",
                 px: 2,
                 flexDirection: "column",
+                cursor: "pointer",
               }}
             >
               <h3>20</h3>
-              <h3>Following</h3>
+              <h3 onClick={handleFollowingModal}>Following</h3>
+              <Following
+                open={openFollowing}
+                handleClose={handleFollowingModal}
+              />
             </Box>
           </Box>
           <h2>Your Posts</h2>
