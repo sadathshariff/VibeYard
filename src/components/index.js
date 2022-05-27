@@ -6,3 +6,5 @@ export { Card } from "./Card/Card";
 export { BottomNav } from "./BottomNav/BottomNav";
 export { Comment } from "./Comment/Comment";
 export { ProfileModal } from "./ProfileModal/ProfileModal";
+export { Followers } from "./Followers/Followers";
+export { Following } from "./Following/Following";
