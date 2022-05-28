@@ -40,7 +40,6 @@ export const Login = () => {
       dispatch(setUserId(result.user.uid));
       dispatch(getLoggedInUserData(result.user.uid));
       localStorage.setItem("userToken", result.user.uid);
-      console.log(result);
       if (result.user) {
         navigate("/feed", { replace: true });
       }
