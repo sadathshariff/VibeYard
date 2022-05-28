@@ -6,12 +6,16 @@ import AuthImage from "assets/AuthImage.svg";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { useDispatch } from "react-redux";
+import { openToast } from "redux/features/toastSlice";
+import { setUserId } from "redux/features/user/userSlice";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "firebase.js";
+import { getLoggedInUserData } from "firebaseMethods";
 export const Login = () => {
   const navigate = useNavigate();
-  const guestLogin = {
-    email: "guest@gmail.com",
-    password: "guest@123",
-  };
+  const dispatch = useDispatch();
+
   const initialValues = {
     email: "",
     password: "",
@@ -24,9 +28,60 @@ export const Login = () => {
       .required("Please Enter Password!")
       .min(8, "Password must be 8 or more characters"),
   });
+  const handleLogin = async (email, password) => {
+    try {
+      const result = await signInWithEmailAndPassword(auth, email, password);
+      dispatch(
+        openToast({
+          message: `Login Successful, Welcome ${result.user.email}`,
+          type: "success",
+        })
+      );
+      dispatch(setUserId(result.user.uid));
+      dispatch(getLoggedInUserData(result.user.uid));
+      localStorage.setItem("userToken", result.user.uid);
+      if (result.user) {
+        navigate("/feed", { replace: true });
+      }
+    } catch (error) {
+      const errorCode = error.code;
+
+      switch (errorCode) {
+        case "auth/wrong-password":
+          return dispatch(
+            openToast({
+              message: "Invalid password,Try recalling it",
+              type: "error",
+            })
+          );
+        case "auth/invalid-email":
+          return dispatch(
+            openToast({
+              message: "Invalid emailId",
+              type: "error",
+            })
+          );
+        case "auth/user-not-found":
+          return dispatch(
+            openToast({
+              message: "You have to signup First ",
+              type: "warning",
+            })
+          );
+        default:
+          dispatch(
+            openToast({
+              message: "Some error occured, please try again later.",
+              type: "error",
+            })
+          );
+      }
+    }
+  };
+
   const onSubmit = (values, actions) => {
+    handleLogin(values.email, values.password);
     actions.resetForm();
-    navigate("/feed", { replace: true });
   };
 
   const formik = useFormik({
@@ -75,10 +130,6 @@ export const Login = () => {
             <div className="form-button-divs">
               <Button type="submit" variant="contained" fullWidth>
                 Login
-              </Button>
-              <p align="center">OR</p>
-              <Button variant="contained" color="success" fullWidth>
-                Guest Login
               </Button>
             </div>
           </form>

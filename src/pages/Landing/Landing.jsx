@@ -22,16 +22,16 @@ export const Landing = () => {
       <h1 align="center">Welcome to</h1>
 
       <div className={`${styles.home_container}`}>
-        <Particles
+        {/* <Particles
           id="tsparticles"
           init={particlesInit}
           // loaded={particlesLoaded}
           options={particlesConfig}
-        ></Particles>
+        ></Particles> */}
         <section className={`${styles.showcase} flex-center`}>
-          <video className={`${styles.video} `} autoPlay loop muted>
+          {/* <video className={`${styles.video} `} autoPlay loop muted>
             <source src={video} type="video/mp4" />
-          </video>
+          </video> */}
           <h3 className={`${styles.title}`}>VibeYard</h3>
         </section>
         <Box
