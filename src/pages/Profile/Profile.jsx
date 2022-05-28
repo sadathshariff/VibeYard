@@ -11,7 +11,9 @@ import {
   Following,
 } from "components";
 import { Box, Avatar, Button } from "@mui/material";
+import { useSelector } from "react-redux";
 export const Profile = () => {
+  const { user } = useSelector((store) => store.user);
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -37,7 +39,7 @@ export const Profile = () => {
               }}
             >
               <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
-              <h2>Profile Name Of User</h2>
+              <h2>{user?.userName}</h2>
               <Box
                 sx={{
                   component: "div",
@@ -53,12 +55,26 @@ export const Profile = () => {
                 </Button>
                 <ProfileModal open={open} handleCloseModal={handleCloseModal} />
               </Box>
-              <p align="center">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Commodi
-                modi ratione adipisci molestias non explicabo dicta qui beatae
-                ipsa earum.
-              </p>
-              <p align="center">Website.com</p>
+              {user.bio !== "" ? (
+                <p align="center">{user?.bio}</p>
+              ) : (
+                <p align="center">
+                  Add User Bio here so that people can vibe with you
+                </p>
+              )}
+              {user.website !== "" ? (
+                <p align="center" sx={{ cursor: "pointer" }}>
+                  <a
+                    href={`//${user?.website}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    {user?.website}
+                  </a>
+                </p>
+              ) : (
+                <p align="center">Add your website url here</p>
+              )}
             </Box>
           </div>
 

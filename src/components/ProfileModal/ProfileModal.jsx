@@ -1,3 +1,4 @@
+import { useState } from "react";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import Dialog from "@mui/material/Dialog";
@@ -5,25 +6,73 @@ import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogTitle from "@mui/material/DialogTitle";
 import { Avatar, Box } from "@mui/material";
+import { useDispatch, useSelector } from "react-redux";
+import { doc, updateDoc } from "firebase/firestore";
+import { openToast } from "redux/features/toastSlice";
+import { db } from "firebase.js";
+import { getLoggedInUserData } from "firebaseMethods";
 
 export const ProfileModal = ({ open, handleCloseModal }) => {
+  const { token } = useSelector((store) => store.user);
+  const dispatch = useDispatch();
+
+  const initialData = {
+    website: "",
+    bio: "",
+  };
+
+  const [userInfo, setUserInfo] = useState(initialData);
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const value = e.target.value;
+    setUserInfo({ ...userInfo, [name]: value });
+  };
+  const handleReset = () => {
+    setUserInfo(initialData);
+    handleCloseModal();
+  };
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const updatedUser = doc(db, "users", token);
+    const { bio, website } = userInfo;
+    if (bio && website) {
+      await updateDoc(updatedUser, {
+        bio: bio,
+        website: website,
+      });
+      dispatch(getLoggedInUserData(token));
+      dispatch(
+        openToast({
+          message: "Profile Updated successfully!",
+          type: "success",
+        })
+      );
+    } else {
+      dispatch(
+        openToast({
+          message: "Please Fill All the fields ",
+          type: "warning",
+        })
+      );
+    }
+  };
+
   return (
     <>
-      <div>
-        <Dialog open={open} onClose={handleCloseModal}>
-          <DialogTitle>Edit Profile</DialogTitle>
+      <Dialog open={open} onClose={handleCloseModal}>
+        <DialogTitle>Edit Profile</DialogTitle>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <DialogContent>
-            <Box sx={{ display: "flex", justifyContent: "center", p: 1 }}>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                p: 1,
+              }}
+            >
               <Avatar alt="User Profile" sx={{ width: 66, height: 66 }} />
             </Box>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              label="Name"
-              type="text"
-              fullWidth
-            />
 
             <TextField
               autoFocus
@@ -32,6 +81,9 @@ export const ProfileModal = ({ open, handleCloseModal }) => {
               label="Website"
               type="text"
               fullWidth
+              value={userInfo.website}
+              name="website"
+              onChange={(e) => handleChange(e)}
             />
             <TextField
               autoFocus
@@ -40,22 +92,31 @@ export const ProfileModal = ({ open, handleCloseModal }) => {
               label="Bio"
               type="text"
               fullWidth
+              value={userInfo.bio}
+              name="bio"
+              onChange={(e) => handleChange(e)}
             />
           </DialogContent>
           <DialogActions>
-            <Button onClick={handleCloseModal} variant="outlined" color="error">
+            <Button
+              onClick={() => handleReset()}
+              variant="outlined"
+              color="error"
+              type="reset"
+            >
               Cancel
             </Button>
             <Button
               onClick={handleCloseModal}
               variant="contained"
               color="success"
+              type="submit"
             >
               Save
             </Button>
           </DialogActions>
-        </Dialog>
-      </div>
+        </form>
+      </Dialog>
     </>
   );
 };

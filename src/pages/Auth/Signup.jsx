@@ -6,9 +6,16 @@ import AuthImage from "assets/AuthImage.svg";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { openToast } from "redux/features/toastSlice";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useDispatch } from "react-redux";
+import { createUser, getLoggedInUserData } from "firebaseMethods.js";
+import { auth } from "firebase.js";
+import { setUserId } from "redux/features/user/userSlice";
 
 export const Signup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const initialValues = {
     userName: "",
     email: "",
@@ -26,10 +33,57 @@ export const Signup = () => {
       .required("Enter Password")
       .min(8, "Password must be 8 or more characters"),
   });
+  const addUser = async (userName, email, password) => {
+    try {
+      const result = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      );
+      createUser(userName, email, password, result.user.uid);
+      dispatch(
+        openToast({
+          message: `SignUp Successful, Welcome ${result.user.email}`,
+          type: "success",
+        })
+      );
+      dispatch(setUserId(result.user.uid));
+      dispatch(getLoggedInUserData(result.user.uid));
+      localStorage.setItem("userToken", result.user.uid);
+      if (result.user) {
+        navigate("/feed", { replace: true });
+      }
+    } catch (error) {
+      const errorCode = error.code;
+      switch (errorCode) {
+        case "auth/email-already-in-use":
+          return dispatch(
+            openToast({
+              message: "This email is already in use",
+              type: "error",
+            })
+          );
+        case "auth/weak-password":
+          return dispatch(
+            openToast({
+              message: "Password should have more than 8 characters",
+              type: "warning",
+            })
+          );
+        default:
+          dispatch(
+            openToast({
+              message: "Some error occured, please try again later.",
+              type: "error",
+            })
+          );
+      }
+    }
+  };
 
   const onSubmit = (values, actions) => {
+    addUser(values.userName, values.email, values.password);
     actions.resetForm();
-    navigate("/login");
   };
 
   const formik = useFormik({
