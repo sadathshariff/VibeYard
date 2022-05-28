@@ -10,7 +10,7 @@ import {
   Followers,
   Following,
 } from "components";
-import { Box, Avatar, Button } from "@mui/material";
+import { Box, Avatar, Button, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 export const Profile = () => {
   const { user } = useSelector((store) => store.user);
@@ -64,13 +64,15 @@ export const Profile = () => {
               )}
               {user.website !== "" ? (
                 <p align="center" sx={{ cursor: "pointer" }}>
-                  <a
-                    href={`//${user?.website}`}
-                    target="_blank"
+                  <Typography
+                    variant="p"
+                    href={user?.website}
+                    component="a"
                     rel="noreferrer"
+                    target="_blank"
                   >
                     {user?.website}
-                  </a>
+                  </Typography>
                 </p>
               ) : (
                 <p align="center">Add your website url here</p>

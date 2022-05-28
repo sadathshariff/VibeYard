@@ -79,7 +79,7 @@ export const ProfileModal = ({ open, handleCloseModal }) => {
               margin="dense"
               id="website"
               label="Website"
-              type="text"
+              type="url"
               fullWidth
               value={userInfo.website}
               name="website"
