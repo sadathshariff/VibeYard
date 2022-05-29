@@ -13,7 +13,9 @@ import {
 import { Box, Avatar, Button, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
 export const Profile = () => {
-  const { user } = useSelector((store) => store.user);
+  const { user, token } = useSelector((store) => store.user);
+  const { allPosts } = useSelector((store) => store.allPosts);
+
   const [open, setOpen] = useState(false);
   const handleOpenModal = () => setOpen(true);
   const handleCloseModal = () => setOpen(false);
@@ -23,6 +25,9 @@ export const Profile = () => {
 
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleFollowingModal = () => setOpenFollowing((prev) => !prev);
+
+  const userPosts = allPosts.filter((post) => post?.data.userId === token);
+
   return (
     <>
       <Header />
@@ -135,10 +140,29 @@ export const Profile = () => {
               />
             </Box>
           </Box>
-          <h2>Your Posts</h2>
+          <Typography
+            variant="h5"
+            gutterBottom
+            sx={{ fontFamily: "Quicksand" }}
+          >
+            Your Posts
+          </Typography>
           <div>
-            {/* User Posts will come here */}
-            {/* <Card /> */}
+            {userPosts.length > 0 ? (
+              <>
+                {userPosts.map((post) => (
+                  <Card posts={post} key={post.id} />
+                ))}
+              </>
+            ) : (
+              <Typography
+                variant="h6"
+                gutterBottom
+                sx={{ fontFamily: "Quicksand" }}
+              >
+                You haven't posted anything yet, start vibing with others
+              </Typography>
+            )}
           </div>
 
           <div className="bottomNav_container">
