@@ -137,9 +137,8 @@ export const Profile = () => {
           </Box>
           <h2>Your Posts</h2>
           <div>
-            <Card />
-            <Card />
-            <Card />
+            {/* User Posts will come here */}
+            {/* <Card /> */}
           </div>
 
           <div className="bottomNav_container">
