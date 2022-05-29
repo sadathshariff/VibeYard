@@ -10,11 +10,6 @@
   display: flex;
   align-items: center;
 }
-.card_username {
-  font-weight: 500;
-  font-size: 1.2rem;
-  margin-left: 0.5rem;
-}
 
 .card_icons {
   display: flex;
@@ -36,6 +31,7 @@
 }
 .comment_container {
   margin: 0.5rem 0;
-  height: 10rem;
+  height: max-content;
+  max-height: 10rem;
   overflow-y: scroll;
 }

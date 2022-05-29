@@ -25,14 +25,14 @@ export const Following = ({ open, handleClose }) => {
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
     boxShadow: `var(--light-shadow)`,
-    p: 3,
+    p: 1,
     borderRadius: "10px",
     fontFamily: "Nunito",
     color: "var(--text-color)",
     height: "max-content",
     width: 300,
     maxHeight: 300,
-    overflowY: "scroll",
+    overflowY: "auto",
   };
   return (
     <div>

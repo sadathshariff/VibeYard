@@ -9,8 +9,18 @@ import {
   Card,
   BottomNav,
 } from "components";
+import { useSelector, useDispatch } from "react-redux";
+import { getAllPosts } from "firebaseMethods";
+import { useEffect } from "react";
 
 export const Home = () => {
+  const { allPosts } = useSelector((store) => store.allPosts);
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getAllPosts());
+  }, []);
   return (
     <>
       <Header />
@@ -27,13 +37,10 @@ export const Home = () => {
               <Chip label="Oldest" color="success" variant="contained" />
             </Stack>
           </div>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {allPosts?.map((post) => (
+            <Card posts={post} key={post.id} />
+          ))}
+
           <div className="bottomNav_container">
             <BottomNav />
           </div>

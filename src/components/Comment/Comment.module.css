@@ -3,9 +3,9 @@
   margin: 0.5rem 0;
 }
 .comment_div {
-  margin: 0 0.5rem;
   width: 100%;
   border-radius: 5px;
+  flex-wrap: wrap;
 }
 .profile_name,
 .comment_text {
@@ -15,6 +15,11 @@
   padding: 0 0.5rem;
   font-weight: 600;
   font-size: 1rem;
+}
+.comment_date {
+  font-weight: 500;
+  font-size: 1rem;
+  margin: 0 0.5rem;
 }
 .comment_text {
   padding: 0.5rem;

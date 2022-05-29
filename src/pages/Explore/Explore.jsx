@@ -1,5 +1,7 @@
 import { Header, SideNav, FollowBar, Card, BottomNav } from "components";
+import { useSelector } from "react-redux";
 export const Explore = () => {
+  const { allPosts } = useSelector((store) => store.allPosts);
   return (
     <>
       <Header />
@@ -7,13 +9,9 @@ export const Explore = () => {
         <SideNav />
         <main className="main_container">
           <h1>Find your vibe</h1>
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
-          <Card />
+          {allPosts?.map((post) => (
+            <Card posts={post} key={post.id} />
+          ))}
           <div className="bottomNav_container">
             <BottomNav />
           </div>
