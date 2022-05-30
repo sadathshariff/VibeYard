@@ -4,12 +4,20 @@ import { getAllPosts } from "firebaseMethods";
 const initialState = {
   isLoading: false,
   allPosts: [],
+  editPost: {},
 };
 
 const allPostSlice = createSlice({
   name: "allPosts",
   initialState,
-  reducers: {},
+  reducers: {
+    setPostDetails: (state, action) => {
+      state.editPost = action.payload;
+    },
+    clearPostDetails: (state) => {
+      state.editPost = {};
+    },
+  },
   extraReducers: {
     [getAllPosts.pending]: (state) => {
       state.isLoading = true;
@@ -23,5 +31,6 @@ const allPostSlice = createSlice({
     },
   },
 });
+export const { setPostDetails, clearPostDetails } = allPostSlice.actions;
 
 export default allPostSlice.reducer;

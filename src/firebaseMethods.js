@@ -9,7 +9,9 @@ import {
   orderBy,
   query,
   getDocs,
+  deleteDoc,
 } from "firebase/firestore";
+import { openToast } from "redux/features/toastSlice";
 export const createUser = async (userName, email, password, userId) => {
   try {
     await setDoc(doc(db, "users", userId), {
@@ -56,3 +58,24 @@ export const getAllPosts = createAsyncThunk("user/getAllPosts", async () => {
   }
   return posts;
 });
+
+export const deletePost = async (postId, dispatch) => {
+  try {
+    await deleteDoc(doc(db, "posts", postId));
+    dispatch(getAllPosts());
+    dispatch(
+      openToast({
+        message: "Deleted Post Successfully",
+        type: "success",
+      })
+    );
+  } catch (error) {
+    console.log("Error", error);
+    dispatch(
+      openToast({
+        message: "Couldn't delete,Try after sometime",
+        type: "error",
+      })
+    );
+  }
+};
