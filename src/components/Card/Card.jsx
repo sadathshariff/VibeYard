@@ -9,7 +9,7 @@ import { MdMoreVert } from "react-icons/md";
 import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 
-import { Comment } from "components";
+import { CardMenu, Comment } from "components";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
 import { db } from "firebase.js";
 import { useSelector, useDispatch } from "react-redux";
@@ -18,10 +18,11 @@ import { openToast } from "redux/features/toastSlice";
 export const Card = ({ posts }) => {
   const { id } = posts;
   const { userName, text, timeStamp, comments, likes, userId } = posts.data;
+
   const time = new Date(timeStamp.seconds * 1000).toLocaleDateString();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
-  const [showEdit, setShowEdit] = useState(false);
+
   const { user } = useSelector((store) => store.user);
 
   const token = localStorage.getItem("userToken");
@@ -152,10 +153,7 @@ export const Card = ({ posts }) => {
           </Box>
           {isUserSame && (
             <Box sx={{ cursor: "pointer", marginLeft: "auto" }}>
-              <MdMoreVert
-                size={25}
-                onClick={() => setShowEdit((prev) => !prev)}
-              />
+              <CardMenu data={posts}  />
             </Box>
           )}
         </div>

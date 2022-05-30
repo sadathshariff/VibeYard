@@ -9,3 +9,4 @@ export { ProfileModal } from "./ProfileModal/ProfileModal";
 export { Followers } from "./Followers/Followers";
 export { Following } from "./Following/Following";
 export { Toast } from "./Toast/Toast";
+export { CardMenu } from "./CardMenu/CardMenu";

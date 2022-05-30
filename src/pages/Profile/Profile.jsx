@@ -9,6 +9,7 @@ import {
   ProfileModal,
   Followers,
   Following,
+  ModalComp,
 } from "components";
 import { Box, Avatar, Button, Typography } from "@mui/material";
 import { useSelector } from "react-redux";
@@ -82,6 +83,9 @@ export const Profile = () => {
               ) : (
                 <p align="center">Add your website url here</p>
               )}
+            </Box>
+            <Box sx={{ display: "flex", justifyContent: "center" }}>
+              <ModalComp />
             </Box>
           </div>
 
