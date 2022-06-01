@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   allPosts: [],
   editPost: {},
+  sortBy: "latest",
 };
 
 const allPostSlice = createSlice({
@@ -16,6 +17,9 @@ const allPostSlice = createSlice({
     },
     clearPostDetails: (state) => {
       state.editPost = {};
+    },
+    sortByPosts: (state, action) => {
+      state.sortBy = action.payload;
     },
   },
   extraReducers: {
@@ -31,6 +35,7 @@ const allPostSlice = createSlice({
     },
   },
 });
-export const { setPostDetails, clearPostDetails } = allPostSlice.actions;
+export const { setPostDetails, clearPostDetails, sortByPosts } =
+  allPostSlice.actions;
 
 export default allPostSlice.reducer;

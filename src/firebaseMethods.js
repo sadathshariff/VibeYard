@@ -10,6 +10,9 @@ import {
   query,
   getDocs,
   deleteDoc,
+  updateDoc,
+  arrayUnion,
+  arrayRemove,
 } from "firebase/firestore";
 import { openToast } from "redux/features/toastSlice";
 export const createUser = async (userName, email, password, userId) => {
@@ -70,12 +73,81 @@ export const deletePost = async (postId, dispatch) => {
       })
     );
   } catch (error) {
-    console.log("Error", error);
     dispatch(
       openToast({
         message: "Couldn't delete,Try after sometime",
         type: "error",
       })
     );
+  }
+};
+
+export const getAllUsers = createAsyncThunk(
+  "allUsers/getAllUsers",
+  async () => {
+    let users = [];
+    const querySnapshot = await getDocs(collection(db, "users"));
+    querySnapshot.forEach((doc) => {
+      users.push({ id: doc.id, data: doc.data() });
+    });
+    return users;
+  }
+);
+
+export const followUser = async (user, id, peerId, peerData, dispatch) => {
+  try {
+    const followingRef = doc(db, "users", id);
+    const peerFollowerRef = doc(db, "users", peerId);
+    await updateDoc(followingRef, {
+      following: arrayUnion({
+        userId: peerId,
+        userName: peerData?.userName,
+      }),
+    });
+    await updateDoc(peerFollowerRef, {
+      followers: arrayUnion({
+        userId: id,
+        userName: user?.userName,
+      }),
+    });
+    dispatch(getLoggedInUserData(id));
+    dispatch(getAllUsers());
+    dispatch(
+      openToast({
+        message: `you started following ${peerData?.userName}`,
+        type: "success",
+      })
+    );
+  } catch (error) {
+    console.log("Error Following", error);
+  }
+};
+
+export const unFollowUser = async (user, id, peerId, peerData, dispatch) => {
+  try {
+    const followingRef = doc(db, "users", id);
+    const peerFollowerRef = doc(db, "users", peerId);
+    await updateDoc(followingRef, {
+      following: arrayRemove({
+        userId: peerId,
+        userName: peerData?.userName,
+      }),
+    });
+    await updateDoc(peerFollowerRef, {
+      followers: arrayRemove({
+        userId: id,
+        userName: user?.userName,
+      }),
+    });
+    dispatch(getLoggedInUserData(id));
+    dispatch(getAllUsers());
+    dispatch(
+      openToast({
+        message: `you unfollowed ${peerData?.userName}`,
+        type: "success",
+      })
+    );
+  } catch (error) {
+    console.log("Error Following", error);
   }
 };

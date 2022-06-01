@@ -8,6 +8,7 @@ import {
   Profile,
   NotFound,
   Home,
+  User,
 } from "pages";
 export const RouterPath = () => {
   return (
@@ -20,6 +21,7 @@ export const RouterPath = () => {
         <Route path="/bookmark" element={<Bookmark />} />
         <Route path="/explore" element={<Explore />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/user/:userName" element={<User />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
     </>
