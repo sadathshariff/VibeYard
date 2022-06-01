@@ -21,17 +21,6 @@ export const Home = () => {
     user?.following?.some((person) => person.userId === p?.data?.userId)
   );
 
-  // const filterByDate = [...filterPosts].sort(
-  //   (a, b) =>
-  //     new Date(a.data?.timeStamp.seconds * 1000) -
-  //     new Date(b.data?.timeStamp.seconds * 1000)
-  // );
-
-  // const isUndefined = (o) => typeof o.popularity === "undefined";
-  // const filterByLikes = filterPosts?.sort(
-  //   (a, b) => b?.data?.likes?.length - a?.data?.likes?.length
-  // );
-
   return (
     <>
       <Header />

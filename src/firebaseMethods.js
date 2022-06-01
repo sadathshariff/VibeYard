@@ -73,7 +73,6 @@ export const deletePost = async (postId, dispatch) => {
       })
     );
   } catch (error) {
-    console.log("Error", error);
     dispatch(
       openToast({
         message: "Couldn't delete,Try after sometime",
@@ -97,7 +96,6 @@ export const getAllUsers = createAsyncThunk(
 
 export const followUser = async (user, id, peerId, peerData, dispatch) => {
   try {
-    console.log("Follow", user, id, peerId, peerData);
     const followingRef = doc(db, "users", id);
     const peerFollowerRef = doc(db, "users", peerId);
     await updateDoc(followingRef, {
@@ -126,7 +124,6 @@ export const followUser = async (user, id, peerId, peerData, dispatch) => {
 };
 
 export const unFollowUser = async (user, id, peerId, peerData, dispatch) => {
-
   try {
     const followingRef = doc(db, "users", id);
     const peerFollowerRef = doc(db, "users", peerId);
