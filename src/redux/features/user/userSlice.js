@@ -6,6 +6,7 @@ const initialState = {
   isLoading: false,
   userId: null,
   token: localStorage.getItem("userToken") || null,
+  otherUser: {},
 };
 
 const userSlice = createSlice({
@@ -17,6 +18,9 @@ const userSlice = createSlice({
     },
     logout: () => {
       return initialState;
+    },
+    setOtherUser: (state, action) => {
+      state.otherUser = action.payload;
     },
   },
   extraReducers: {
@@ -32,6 +36,6 @@ const userSlice = createSlice({
     },
   },
 });
-export const { setUserId } = userSlice.actions;
+export const { setUserId, setOtherUser } = userSlice.actions;
 
 export default userSlice.reducer;

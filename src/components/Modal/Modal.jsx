@@ -16,7 +16,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllPosts } from "firebaseMethods";
 import { openModal, closeModal } from "redux/features/modal/modalSlice";
 import { clearPostDetails } from "redux/features/allPosts/allPostslice";
-import { setIn } from "formik";
+// import { setIn } from "formik";
 
 const style = {
   position: "absolute",

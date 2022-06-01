@@ -3,6 +3,11 @@ import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 export const Bookmark = () => {
   const { user } = useSelector((store) => store.user);
+  const { allPosts } = useSelector((store) => store.allPosts);
+  const bookmarkedPost = allPosts?.filter((post) =>
+    user?.bookmarks?.find((data) => data?.postId === post?.id)
+  );
+
   return (
     <>
       <Header />
@@ -10,9 +15,9 @@ export const Bookmark = () => {
         <SideNav />
         <main className="main_container">
           <h1>All your BookMarked Posts</h1>
-          {user?.bookmarks?.length > 0 ? (
+          {bookmarkedPost.length > 0 ? (
             <>
-              {user?.bookmarks?.map((post) => (
+              {bookmarkedPost?.map((post) => (
                 <Card posts={post} key={post.id} />
               ))}
             </>

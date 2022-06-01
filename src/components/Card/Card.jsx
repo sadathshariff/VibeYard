@@ -27,8 +27,8 @@ export const Card = ({ posts }) => {
 
   const token = localStorage.getItem("userToken");
   const isLiked = likes?.some((post) => post.userId === token);
-  const isBookmarked = user?.bookmarks?.find((n) => n.id === id);
-  const isBookmarkedPost = isBookmarked ? true : false;
+  const isBookmarked = user?.bookmarks?.some((n) => n.postId === id);
+
   const isUserSame = token === userId;
   const dispatch = useDispatch();
 
@@ -82,7 +82,9 @@ export const Card = ({ posts }) => {
     try {
       const bookmarkPost = doc(db, "users", token);
       await updateDoc(bookmarkPost, {
-        bookmarks: arrayUnion(posts),
+        bookmarks: arrayUnion({
+          postId: id,
+        }),
       });
       dispatch(getLoggedInUserData(token));
       dispatch(
@@ -104,7 +106,9 @@ export const Card = ({ posts }) => {
     try {
       const bookmarkPost = doc(db, "users", token);
       await updateDoc(bookmarkPost, {
-        bookmarks: arrayRemove(posts),
+        bookmarks: arrayRemove({
+          postId: id,
+        }),
       });
       dispatch(getLoggedInUserData(token));
       dispatch(
@@ -153,7 +157,7 @@ export const Card = ({ posts }) => {
           </Box>
           {isUserSame && (
             <Box sx={{ cursor: "pointer", marginLeft: "auto" }}>
-              <CardMenu data={posts}  />
+              <CardMenu data={posts} />
             </Box>
           )}
         </div>
@@ -171,13 +175,16 @@ export const Card = ({ posts }) => {
             {isLiked ? (
               <p onClick={() => removeLike()} className="flex-center">
                 <FaHeart fill="red" />
-                <span> Like</span>
+                <span>{likes?.length}Like</span>
               </p>
             ) : (
               <>
                 <p onClick={() => handleLike()} className="flex-center">
                   <AiOutlineHeart />
-                  <span> Like</span>
+                  <span>
+                    {likes?.length > 0 ? likes?.length : ""}
+                    Like
+                  </span>
                 </p>
               </>
             )}
@@ -191,7 +198,7 @@ export const Card = ({ posts }) => {
             <p>Comments</p>
           </div>
           <div className={`${styles.card_icons}`}>
-            {isBookmarkedPost ? (
+            {isBookmarked ? (
               <p onClick={() => removeFromBookmark()} className="flex-center">
                 <FaBookmark />
                 Bookmark

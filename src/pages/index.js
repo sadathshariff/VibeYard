@@ -6,3 +6,4 @@ export { Explore } from "./Explore/Explore";
 export { Landing } from "./Landing/Landing";
 export { Profile } from "./Profile/Profile";
 export { NotFound } from "./NotFound/NotFound";
+export { User } from "./User/User";

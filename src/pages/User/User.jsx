@@ -1,25 +1,32 @@
-import styles from "./Profile.module.css";
-import { useState } from "react";
+import styles from "../Profile/Profile.module.css";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
   Header,
   SideNav,
   FollowBar,
   Card,
   BottomNav,
-  ProfileModal,
   Followers,
   Following,
-  ModalComp,
 } from "components";
-import { Box, Avatar, Button, Typography } from "@mui/material";
-import { useSelector } from "react-redux";
-export const Profile = () => {
-  const { user, token } = useSelector((store) => store.user);
+import { Box, Avatar, Typography } from "@mui/material";
+import { useSelector, useDispatch } from "react-redux";
+import { setOtherUser } from "redux/features/user/userSlice";
+export const User = () => {
+  const userName = useParams();
+  const dispatch = useDispatch();
+  const { otherUser, token } = useSelector((store) => store.user);
   const { allPosts } = useSelector((store) => store.allPosts);
+  const { allusers } = useSelector((store) => store.allUsers);
 
-  const [open, setOpen] = useState(false);
-  const handleOpenModal = () => setOpen(true);
-  const handleCloseModal = () => setOpen(false);
+  const otherPerson = allusers?.find(
+    (n) => n?.data?.userName === userName.userName
+  );
+
+  useEffect(() => {
+    dispatch(setOtherUser(otherPerson));
+  }, [userName]);
 
   const [openFollowers, setOpenFollowers] = useState(false);
   const handleFollowersModal = () => setOpenFollowers((prev) => !prev);
@@ -27,7 +34,9 @@ export const Profile = () => {
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleFollowingModal = () => setOpenFollowing((prev) => !prev);
 
-  const userPosts = allPosts.filter((post) => post?.data.userId === token);
+  const otherUserPosts = allPosts.filter(
+    (post) => post?.data?.userId === otherPerson?.id
+  );
 
   return (
     <>
@@ -45,47 +54,35 @@ export const Profile = () => {
               }}
             >
               <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
-              <h2>{user?.userName}</h2>
+              <h2>{otherUser?.data?.userName}</h2>
               <Box
                 sx={{
                   component: "div",
                 }}
               >
-                <Button
-                  variant="contained"
-                  color="success"
-                  fullWidth
-                  onClick={handleOpenModal}
-                >
-                  Edit Profile
-                </Button>
-                <ProfileModal open={open} handleCloseModal={handleCloseModal} />
+                {otherUser?.data?.bio !== "" ? (
+                  <p align="center">{otherUser?.bio}</p>
+                ) : (
+                  <p align="center">
+                    Add User Bio here so that people can vibe with you
+                  </p>
+                )}
+                {otherUser?.data?.website !== "" ? (
+                  <p align="center" sx={{ cursor: "pointer" }}>
+                    <Typography
+                      variant="p"
+                      href={otherUser?.website}
+                      component="a"
+                      rel="noreferrer"
+                      target="_blank"
+                    >
+                      {otherUser?.data?.website}
+                    </Typography>
+                  </p>
+                ) : (
+                  <p align="center">Add your website url here</p>
+                )}
               </Box>
-              {user.bio !== "" ? (
-                <p align="center">{user?.bio}</p>
-              ) : (
-                <p align="center">
-                  Add User Bio here so that people can vibe with you
-                </p>
-              )}
-              {user.website !== "" ? (
-                <p align="center" sx={{ cursor: "pointer" }}>
-                  <Typography
-                    variant="p"
-                    href={user?.website}
-                    component="a"
-                    rel="noreferrer"
-                    target="_blank"
-                  >
-                    {user?.website}
-                  </Typography>
-                </p>
-              ) : (
-                <p align="center">Add your website url here</p>
-              )}
-            </Box>
-            <Box sx={{ display: "flex", justifyContent: "center" }}>
-              <ModalComp />
             </Box>
           </div>
 
@@ -107,11 +104,12 @@ export const Profile = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{user?.followers?.length}</h3>
+              <h3>{otherUser?.data?.followers?.length}</h3>
               <h3 onClick={handleFollowersModal}>Followers</h3>
               <Followers
                 open={openFollowers}
                 handleClose={handleFollowersModal}
+                isOtherUser={true}
               />
             </Box>
             <Box
@@ -123,7 +121,7 @@ export const Profile = () => {
                 flexDirection: "column",
               }}
             >
-              <h3>{userPosts?.length}</h3>
+              <h3>{otherUserPosts?.length}</h3>
               <h3>Posts</h3>
             </Box>
             <Box
@@ -136,11 +134,12 @@ export const Profile = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{user?.following?.length}</h3>
+              <h3>{otherUser?.data?.following?.length}</h3>
               <h3 onClick={handleFollowingModal}>Following</h3>
               <Following
                 open={openFollowing}
                 handleClose={handleFollowingModal}
+                isOtherUser={true}
               />
             </Box>
           </Box>
@@ -152,9 +151,9 @@ export const Profile = () => {
             Your Posts
           </Typography>
           <div>
-            {userPosts.length > 0 ? (
+            {otherUserPosts.length > 0 ? (
               <>
-                {userPosts.map((post) => (
+                {otherUserPosts.map((post) => (
                   <Card posts={post} key={post.id} />
                 ))}
               </>
@@ -164,7 +163,7 @@ export const Profile = () => {
                 gutterBottom
                 sx={{ fontFamily: "Quicksand" }}
               >
-                You haven't posted anything yet, start vibing with others
+                {userName.userName} hasn't Posted anything yet!
               </Typography>
             )}
           </div>
