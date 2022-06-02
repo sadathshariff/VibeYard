@@ -1,5 +1,5 @@
 import styles from "./SideNav.module.css";
-import { Link, NavLink, useNavigate } from "react-router-dom";
+import {  NavLink, useNavigate } from "react-router-dom";
 import { BiHomeSmile } from "react-icons/bi";
 import { MdTravelExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";

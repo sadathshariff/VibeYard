@@ -1,5 +1,5 @@
 import styles from "../Profile/Profile.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Header,
