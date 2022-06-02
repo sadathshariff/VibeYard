@@ -95,6 +95,7 @@ export const getAllUsers = createAsyncThunk(
 );
 
 export const followUser = async (user, id, peerId, peerData, dispatch) => {
+  console.log({ user, id, peerId, peerData });
   try {
     const followingRef = doc(db, "users", id);
     const peerFollowerRef = doc(db, "users", peerId);
