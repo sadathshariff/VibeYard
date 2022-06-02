@@ -1,20 +1,18 @@
 import styles from "./SideNav.module.css";
-import {  NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { BiHomeSmile } from "react-icons/bi";
 import { MdTravelExplore } from "react-icons/md";
 import { BsBookmark } from "react-icons/bs";
 import { FiUser, FiLogOut } from "react-icons/fi";
-import { signOut } from "firebase/auth";
-import { auth } from "firebase.js";
+import { logout } from "redux/features/user/userSlice";
 import { openToast } from "redux/features/toastSlice";
 import { useDispatch } from "react-redux";
 
 export const SideNav = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const logout = () => {
-    signOut(auth);
-    localStorage.removeItem("userToken");
+  const logoutUser = () => {
+    dispatch(logout());
     navigate("/");
     dispatch(openToast({ message: "Logout successful", type: "success" }));
   };
@@ -22,7 +20,6 @@ export const SideNav = () => {
     isActive
       ? {
           backgroundColor: "var(--primary-color)",
-          
         }
       : {};
   return (
@@ -61,12 +58,17 @@ export const SideNav = () => {
           </NavLink>
         </li>
         <li>
-          <div className={`${styles.sidenav_item}`}>
-            <div className={`${styles.sidenav_item}`} onClick={() => logout()}>
-              <FiLogOut size={25} />
-              <p className={`${styles.nav_item}`}>Logout</p>
+          <NavLink to="/">
+            <div className={`${styles.sidenav_item}`}>
+              <div
+                className={`${styles.sidenav_item}`}
+                onClick={() => logoutUser()}
+              >
+                <FiLogOut size={25} />
+                <p className={`${styles.nav_item}`}>Logout</p>
+              </div>
             </div>
-          </div>
+          </NavLink>
         </li>
       </ul>
     </div>

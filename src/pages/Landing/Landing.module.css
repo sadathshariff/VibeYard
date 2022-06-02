@@ -42,4 +42,11 @@ video {
     font-size: 4rem;
     padding: 1rem;
   }
+  .full_container {
+    height: 56vh;
+    margin: 6rem 0;
+  }
+}
+
+@media screen and(max-width:420px) {
 }

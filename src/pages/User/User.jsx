@@ -101,7 +101,7 @@ export const User = () => {
                 }}
               >
                 {otherUser?.data?.bio !== "" ? (
-                  <p align="center">{otherUser?.bio}</p>
+                  <p align="center">{otherUser?.data?.bio}</p>
                 ) : (
                   <p align="center">
                     Add User Bio here so that people can vibe with you
