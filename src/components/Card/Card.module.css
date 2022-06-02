@@ -14,7 +14,7 @@
 .card_icons {
   display: flex;
   align-items: center;
-  padding: 0 0.5rem;
+  padding: 0 5px;
   cursor: pointer;
 }
 
@@ -34,4 +34,10 @@
   height: max-content;
   max-height: 10rem;
   overflow-y: scroll;
+}
+
+@media screen and (max-width: 360px) {
+  .card_icons {
+    padding: 0 3px;
+  }
 }
