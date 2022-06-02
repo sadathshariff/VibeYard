@@ -8,6 +8,7 @@ import { FaHeart, FaBookmark } from "react-icons/fa";
 import { MdMoreVert } from "react-icons/md";
 import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
+import { Link } from "react-router-dom";
 
 import { CardMenu, Comment } from "components";
 import { arrayRemove, arrayUnion, doc, updateDoc } from "firebase/firestore";
@@ -136,16 +137,29 @@ export const Card = ({ posts }) => {
       <div className={`${styles.card_container}`}>
         <div className={`${styles.card_header}`}>
           <Avatar alt="User Profile" src="/static/images/avatar/1.jpg" />
-          <Box sx={{ display: "flex", flexDirection: "column", mx: 1 }}>
-            <Typography
-              variant="h6"
-              display="block"
-              gutterBottom
-              component="div"
-              sx={{ fontFamily: "Nunito", marginBottom: 0 }}
-            >
-              {userName}
-            </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mx: 1,
+              cursor: "pointer",
+            }}
+          >
+            <Link to={`/user/${userName}`}>
+              <Typography
+                variant="h6"
+                display="block"
+                gutterBottom
+                component="div"
+                sx={{
+                  fontFamily: "Nunito",
+                  marginBottom: 0,
+                }}
+              >
+                {userName}
+              </Typography>
+            </Link>
+
             <Typography
               variant="caption"
               display="block"
@@ -155,6 +169,7 @@ export const Card = ({ posts }) => {
               {time}
             </Typography>
           </Box>
+
           {isUserSame && (
             <Box sx={{ cursor: "pointer", marginLeft: "auto" }}>
               <CardMenu data={posts} />
