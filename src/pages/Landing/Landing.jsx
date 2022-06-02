@@ -2,19 +2,17 @@ import styles from "./Landing.module.css";
 import video from "assets/video.mp4";
 import { Link } from "react-router-dom";
 import { Button, Box } from "@mui/material";
-import { loadFull } from "tsparticles";
 
 export const Landing = () => {
   return (
-    <>
+    <div className={`${styles.full_container}`}>
       <h1 align="center">Welcome to</h1>
-
       <div className={`${styles.home_container}`}>
         <section className={`${styles.showcase} flex-center`}>
-          {/* <video className={`${styles.video} `} autoPlay loop muted>
+          <video className={`${styles.video} `} autoPlay loop muted>
             <source src={video} type="video/mp4" />
-          </video> */}
-          <h3 className={`${styles.title}`}>VibeYard</h3>
+          </video>
+          <div className={`${styles.title}`}>VibeYard</div>
         </section>
         <Box
           sx={{
@@ -33,6 +31,6 @@ export const Landing = () => {
           </Box>
         </Box>
       </div>
-    </>
+    </div>
   );
 };

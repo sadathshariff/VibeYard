@@ -1,3 +1,6 @@
+.full_container {
+  height: 94vh;
+}
 .home_container {
   width: 100%;
 }
@@ -26,9 +29,10 @@ video {
   width: 100%;
   height: 100%;
   background-color: #000;
-  font-size: 7rem;
+  font-size: 9rem;
   mix-blend-mode: multiply;
   text-align: center;
+  font-weight: 600;
 }
 
 @media screen and (max-width: 900px) {
