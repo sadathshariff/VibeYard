@@ -99,58 +99,56 @@ export const Followers = ({ open, handleClose, isOtherUser }) => {
                 {otherUser?.data?.followers?.length > 0 ? (
                   <>
                     {otherUser?.data?.followers?.map((peer) => (
-                      <>
-                        <Box
-                          key={peer.userId}
-                          sx={{
-                            display: "flex",
-                            justifyContent: "space-between",
-                            alignItems: "center",
-                          }}
-                        >
-                          <Avatar alt={peer.userName} />
-                          <p>{peer.userName}</p>
-                          {peer.userId === token ? (
-                            <Button variant="outlined">Follows You</Button>
-                          ) : (
-                            <>
-                              {user?.following.some(
-                                (u) => u.userId === peer.userId
-                              ) ? (
-                                <Button
-                                  variant="contained"
-                                  onClick={() =>
-                                    unFollowUser(
-                                      user,
-                                      token,
-                                      peer.userId,
-                                      peer,
-                                      dispatch
-                                    )
-                                  }
-                                >
-                                  Unfollow
-                                </Button>
-                              ) : (
-                                <Button
-                                  variant="contained"
-                                  onClick={() =>
-                                    followUser(
-                                      user,
-                                      token,
-                                      peer.userId,
-                                      peer,
-                                      dispatch
-                                    )
-                                  }
-                                >
-                                  Follow
-                                </Button>
-                              )}
-                            </>
-                          )}
-                        </Box>
-                      </>
+                      <Box
+                        key={peer.userId}
+                        sx={{
+                          display: "flex",
+                          justifyContent: "space-between",
+                          alignItems: "center",
+                        }}
+                      >
+                        <Avatar alt={peer.userName} />
+                        <p>{peer.userName}</p>
+                        {peer.userId === token ? (
+                          <Button variant="outlined">Following </Button>
+                        ) : (
+                          <>
+                            {user?.following?.some(
+                              (u) => u.userId === peer.userId
+                            ) ? (
+                              <Button
+                                variant="contained"
+                                onClick={() =>
+                                  unFollowUser(
+                                    user,
+                                    token,
+                                    peer.userId,
+                                    peer,
+                                    dispatch
+                                  )
+                                }
+                              >
+                                Unfollow
+                              </Button>
+                            ) : (
+                              <Button
+                                variant="contained"
+                                onClick={() =>
+                                  followUser(
+                                    user,
+                                    token,
+                                    peer.userId,
+                                    peer,
+                                    dispatch
+                                  )
+                                }
+                              >
+                                Follow
+                              </Button>
+                            )}
+                          </>
+                        )}
+                      </Box>
                     ))}
                   </>
                 ) : (

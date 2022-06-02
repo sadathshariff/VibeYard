@@ -96,7 +96,7 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                           <Button variant="outlined">Follows You</Button>
                         ) : (
                           <>
-                            {user?.following.some(
+                            {user?.following?.some(
                               (u) => u.userId === peer.userId
                             ) ? (
                               <Button
