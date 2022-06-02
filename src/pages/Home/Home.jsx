@@ -1,5 +1,3 @@
-import styles from "./Home.module.css";
-
 import Typography from "@mui/material/Typography";
 import {
   Header,
@@ -9,16 +7,17 @@ import {
   Card,
   BottomNav,
 } from "components";
-import { useSelector, useDispatch } from "react-redux";
-
+import { useSelector } from "react-redux";
 
 export const Home = () => {
   const { allPosts } = useSelector((store) => store.allPosts);
-  const { user } = useSelector((store) => store.user);
- 
+  const { user, userId, token } = useSelector((store) => store.user);
 
   const filterPosts = allPosts?.filter((p) =>
-    user?.following?.some((person) => person.userId === p?.data?.userId)
+    user?.following?.some(
+      (person) =>
+        p.data.userName === user?.userName || person.userId === p?.data?.userId
+    )
   );
 
   return (

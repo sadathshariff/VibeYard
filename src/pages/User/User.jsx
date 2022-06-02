@@ -1,5 +1,5 @@
 import styles from "../Profile/Profile.module.css";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useParams } from "react-router-dom";
 import {
   Header,
@@ -10,13 +10,14 @@ import {
   Followers,
   Following,
 } from "components";
-import { Box, Avatar, Typography } from "@mui/material";
+import { Box, Avatar, Typography, Button } from "@mui/material";
 import { useSelector, useDispatch } from "react-redux";
 import { setOtherUser } from "redux/features/user/userSlice";
+import { followUser, unFollowUser } from "firebaseMethods";
 export const User = () => {
   const userName = useParams();
   const dispatch = useDispatch();
-  const { otherUser, token } = useSelector((store) => store.user);
+  const { otherUser, token, user } = useSelector((store) => store.user);
   const { allPosts } = useSelector((store) => store.allPosts);
   const { allusers } = useSelector((store) => store.allUsers);
 
@@ -24,9 +25,7 @@ export const User = () => {
     (n) => n?.data?.userName === userName.userName
   );
 
-  useEffect(() => {
-    dispatch(setOtherUser(otherPerson));
-  }, [userName]);
+  dispatch(setOtherUser(otherPerson));
 
   const [openFollowers, setOpenFollowers] = useState(false);
   const handleFollowersModal = () => setOpenFollowers((prev) => !prev);
@@ -36,6 +35,10 @@ export const User = () => {
 
   const otherUserPosts = allPosts.filter(
     (post) => post?.data?.userId === otherPerson?.id
+  );
+
+  const isFollowing = user?.following?.some(
+    (user) => user.userId === otherUser.id
   );
 
   return (
@@ -55,13 +58,50 @@ export const User = () => {
             >
               <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
               <h2>{otherUser?.data?.userName}</h2>
+              <Box as="div">
+                {isFollowing ? (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    fullWidth
+                    onClick={() =>
+                      unFollowUser(
+                        user,
+                        token,
+                        otherUser.id,
+                        otherUser?.data,
+                        dispatch
+                      )
+                    }
+                  >
+                    unfollow
+                  </Button>
+                ) : (
+                  <Button
+                    variant="contained"
+                    color="success"
+                    fullWidth
+                    onClick={() =>
+                      followUser(
+                        user,
+                        token,
+                        otherUser.id,
+                        otherUser?.data,
+                        dispatch
+                      )
+                    }
+                  >
+                    follow
+                  </Button>
+                )}
+              </Box>
               <Box
                 sx={{
                   component: "div",
                 }}
               >
                 {otherUser?.data?.bio !== "" ? (
-                  <p align="center">{otherUser?.bio}</p>
+                  <p align="center">{otherUser?.data?.bio}</p>
                 ) : (
                   <p align="center">
                     Add User Bio here so that people can vibe with you

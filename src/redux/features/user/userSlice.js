@@ -1,5 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { getLoggedInUserData } from "firebaseMethods";
+import { signOut } from "firebase/auth";
+import { auth } from "firebase.js";
 
 const initialState = {
   user: {},
@@ -16,8 +18,10 @@ const userSlice = createSlice({
     setUserId: (state, action) => {
       state.userId = action.payload;
     },
-    logout: () => {
-      return initialState;
+    logout: (state) => {
+      signOut(auth);
+      localStorage.removeItem("userToken");
+      state.user = {};
     },
     setOtherUser: (state, action) => {
       state.otherUser = action.payload;
@@ -36,6 +40,6 @@ const userSlice = createSlice({
     },
   },
 });
-export const { setUserId, setOtherUser } = userSlice.actions;
+export const { setUserId, setOtherUser, logout } = userSlice.actions;
 
 export default userSlice.reducer;

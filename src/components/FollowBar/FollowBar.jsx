@@ -13,7 +13,9 @@ export const FollowBar = () => {
 
   const findUserDoc = allusers.find((u) => u?.id === token);
 
-  const filterUser = allusers.filter((u) => u?.id !== token);
+  const filterUser = allusers.filter(
+    (u) => u?.data?.userName !== user?.userName
+  );
 
   const people = filterUser.filter(
     (person) => !user?.following?.some((p) => p.userId === person.id)

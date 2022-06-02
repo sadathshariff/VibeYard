@@ -27,7 +27,9 @@ export const Profile = () => {
   const [openFollowing, setOpenFollowing] = useState(false);
   const handleFollowingModal = () => setOpenFollowing((prev) => !prev);
 
-  const userPosts = allPosts.filter((post) => post?.data.userId === token);
+  const userPosts = allPosts.filter(
+    (post) => post?.data?.userName === user?.userName
+  );
 
   return (
     <>
