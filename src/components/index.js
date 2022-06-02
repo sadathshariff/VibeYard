@@ -10,6 +10,5 @@ export { Followers } from "./Followers/Followers";
 export { Following } from "./Following/Following";
 export { Toast } from "./Toast/Toast";
 export { CardMenu } from "./CardMenu/CardMenu";
-export { UsersModal } from "./UsersModal/UsersModal";
 export { RequireAuth } from "./RequireAuth/RequireAuth";
 export { ProfileAuth } from "./ProfileAuth/ProfileAuth";

@@ -58,11 +58,7 @@ export const User = () => {
             >
               <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
               <h2>{otherUser?.data?.userName}</h2>
-              <Box
-                sx={{
-                  component: "div",
-                }}
-              >
+              <Box as="div">
                 {isFollowing ? (
                   <Button
                     variant="contained"

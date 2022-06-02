@@ -34,6 +34,10 @@ export const Header = () => {
       .includes(user.toLowerCase());
   });
 
+  if (filteredUsers?.length === 0) {
+    dispatch(openToast({ message: "No Such user Found", type: "warning" }));
+  }
+
   const handleChange = (e) => {
     debounceText(e.target.value);
   };
