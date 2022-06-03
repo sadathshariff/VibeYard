@@ -28,9 +28,7 @@ export const createUser = async (userName, email, password, userId) => {
       following: [],
       timeStamp: serverTimestamp(),
     });
-  } catch (error) {
-    console.log("Error creating user", error);
-  }
+  } catch (error) {}
 };
 
 export const getLoggedInUserData = createAsyncThunk(
@@ -42,9 +40,7 @@ export const getLoggedInUserData = createAsyncThunk(
       if (docSnap.exists()) {
         return docSnap.data();
       }
-    } catch (error) {
-      console.log("Error getting data", error);
-    }
+    } catch (error) {}
   }
 );
 
@@ -95,7 +91,6 @@ export const getAllUsers = createAsyncThunk(
 );
 
 export const followUser = async (user, id, peerId, peerData, dispatch) => {
-  console.log({ user, id, peerId, peerData });
   try {
     const followingRef = doc(db, "users", id);
     const peerFollowerRef = doc(db, "users", peerId);
@@ -120,7 +115,12 @@ export const followUser = async (user, id, peerId, peerData, dispatch) => {
       })
     );
   } catch (error) {
-    console.log("Error Following", error);
+    dispatch(
+      openToast({
+        message: `Some error occured, try again later`,
+        type: "error",
+      })
+    );
   }
 };
 
@@ -149,6 +149,11 @@ export const unFollowUser = async (user, id, peerId, peerData, dispatch) => {
       })
     );
   } catch (error) {
-    console.log("Error Following", error);
+    dispatch(
+      openToast({
+        message: `Some error occured, try again later`,
+        type: "error",
+      })
+    );
   }
 };

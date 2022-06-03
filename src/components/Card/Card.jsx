@@ -45,7 +45,12 @@ export const Card = ({ posts }) => {
       });
       dispatch(getAllPosts());
     } catch (error) {
-      console.log("Error Adding Coment", error);
+      dispatch(
+        openToast({
+          message: `Some error occured while adding comment, try later`,
+          type: "error",
+        })
+      );
     }
     setCommentText("");
   };
@@ -61,7 +66,12 @@ export const Card = ({ posts }) => {
       });
       dispatch(getAllPosts());
     } catch (error) {
-      console.log("Error Liking Post", error);
+      dispatch(
+        openToast({
+          message: `Couldn't like the post, try again later`,
+          type: "error",
+        })
+      );
     }
   };
   const removeLike = async () => {
@@ -75,7 +85,12 @@ export const Card = ({ posts }) => {
       });
       dispatch(getAllPosts());
     } catch (error) {
-      console.log("Error Liking Post", error);
+      dispatch(
+        openToast({
+          message: `something went wrong,try again later`,
+          type: "error",
+        })
+      );
     }
   };
 

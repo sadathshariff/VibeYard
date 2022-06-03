@@ -53,7 +53,12 @@ export const ModalComp = ({ removeText }) => {
       dispatch(getAllPosts());
       handleClose();
     } catch (error) {
-      console.log("Error posting", error);
+      dispatch(
+        openToast({
+          message: `Some error occured, try again later`,
+          type: "error",
+        })
+      );
     }
   };
   const handleEdit = async () => {
@@ -70,7 +75,12 @@ export const ModalComp = ({ removeText }) => {
       dispatch(getAllPosts());
       handleClose();
     } catch (error) {
-      console.log("Error posting", error);
+      dispatch(
+        openToast({
+          message: `couldn't update post, try again later`,
+          type: "error",
+        })
+      );
     }
   };
   const handleSubmit = (e) => {
