@@ -54,7 +54,8 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                           <p>{peer.userName}</p>
                         </Link>
                         <Button
-                          variant="contained"
+                          variant="outlined"
+                          color="success"
                           onClick={() =>
                             unFollowUser(
                               user,
@@ -102,7 +103,8 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                               (u) => u.userId === peer.userId
                             ) ? (
                               <Button
-                                variant="contained"
+                                variant="outlined"
+                                color="success"
                                 onClick={() =>
                                   unFollowUser(
                                     user,
