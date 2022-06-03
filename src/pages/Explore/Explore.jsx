@@ -1,6 +1,13 @@
 import Chip from "@mui/material/Chip";
 import Stack from "@mui/material/Stack";
-import { Header, SideNav, FollowBar, Card, BottomNav } from "components";
+import {
+  Header,
+  SideNav,
+  FollowBar,
+  Card,
+  BottomNav,
+  ModalComp,
+} from "components";
 import { useSelector, useDispatch } from "react-redux";
 import { sortByPosts } from "redux/features/allPosts/allPostslice";
 export const Explore = () => {
@@ -35,6 +42,7 @@ export const Explore = () => {
         <SideNav />
         <main className="main_container">
           <h1>Find your vibe</h1>
+          <ModalComp removeText={true} />
           <div className=" flex align-center p-sm">
             <h3>Sort By:</h3>
             <Stack direction="row" spacing={1} margin={1}>

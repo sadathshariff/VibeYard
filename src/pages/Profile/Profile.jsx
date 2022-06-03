@@ -109,8 +109,10 @@ export const Profile = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{user?.followers?.length}</h3>
-              <h3 onClick={handleFollowersModal}>Followers</h3>
+              <div onClick={() => handleFollowersModal()}>
+                <h3 align="center">{user?.followers?.length}</h3>
+                <h3>Followers</h3>
+              </div>
               <Followers
                 open={openFollowers}
                 handleClose={handleFollowersModal}
@@ -125,8 +127,10 @@ export const Profile = () => {
                 flexDirection: "column",
               }}
             >
-              <h3>{userPosts?.length}</h3>
-              <h3>Posts</h3>
+              <div>
+                <h3 align="center">{userPosts?.length}</h3>
+                <h3>Posts</h3>
+              </div>
             </Box>
             <Box
               sx={{
@@ -138,8 +142,10 @@ export const Profile = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{user?.following?.length}</h3>
-              <h3 onClick={handleFollowingModal}>Following</h3>
+              <div onClick={() => handleFollowingModal()}>
+                <h3 align="center">{user?.following?.length}</h3>
+                <h3>Following</h3>
+              </div>
               <Following
                 open={openFollowing}
                 handleClose={handleFollowingModal}

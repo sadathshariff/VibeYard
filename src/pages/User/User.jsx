@@ -27,18 +27,19 @@ export const User = () => {
 
   dispatch(setOtherUser(otherPerson));
 
-  const [openFollowers, setOpenFollowers] = useState(false);
-  const handleFollowersModal = () => setOpenFollowers((prev) => !prev);
+  const [openFollowersUser, setOpenFollowersUser] = useState(false);
+  const openFollowers = () => setOpenFollowersUser(true);
+  const closeFollowers = () => setOpenFollowersUser(false);
 
-  const [openFollowing, setOpenFollowing] = useState(false);
-  const handleFollowingModal = () => setOpenFollowing((prev) => !prev);
+  const [openFollowingUser, setOpenFollowingUser] = useState(false);
+  const handleFollowingModalUser = () => setOpenFollowingUser((prev) => !prev);
 
   const otherUserPosts = allPosts.filter(
     (post) => post?.data?.userId === otherPerson?.id
   );
 
   const isFollowing = user?.following?.some(
-    (user) => user.userId === otherUser.id
+    (user) => user?.userId === otherUser?.id
   );
 
   return (
@@ -144,11 +145,13 @@ export const User = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{otherUser?.data?.followers?.length}</h3>
-              <h3 onClick={handleFollowersModal}>Followers</h3>
+              <div onClick={openFollowers}>
+                <h3 align="center">{otherUser?.data?.followers?.length}</h3>
+                <h3>Followers</h3>
+              </div>
               <Followers
-                open={openFollowers}
-                handleClose={handleFollowersModal}
+                open={openFollowersUser}
+                handleClose={closeFollowers}
                 isOtherUser={true}
               />
             </Box>
@@ -161,8 +164,10 @@ export const User = () => {
                 flexDirection: "column",
               }}
             >
-              <h3>{otherUserPosts?.length}</h3>
-              <h3>Posts</h3>
+              <div>
+                <h3 align="center">{otherUserPosts?.length}</h3>
+                <h3>Posts</h3>
+              </div>
             </Box>
             <Box
               sx={{
@@ -174,11 +179,14 @@ export const User = () => {
                 cursor: "pointer",
               }}
             >
-              <h3>{otherUser?.data?.following?.length}</h3>
-              <h3 onClick={handleFollowingModal}>Following</h3>
+              <div onClick={handleFollowingModalUser}>
+                <h3 align="center">{otherUser?.data?.following?.length}</h3>
+                <h3>Following</h3>
+              </div>
+
               <Following
-                open={openFollowing}
-                handleClose={handleFollowingModal}
+                open={openFollowingUser}
+                handleClose={handleFollowingModalUser}
                 isOtherUser={true}
               />
             </Box>

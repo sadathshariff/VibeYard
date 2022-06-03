@@ -5,6 +5,7 @@ const initialState = {
   isLoading: false,
   allPosts: [],
   editPost: {},
+  isEdit: false,
   sortBy: "latest",
 };
 
@@ -14,9 +15,11 @@ const allPostSlice = createSlice({
   reducers: {
     setPostDetails: (state, action) => {
       state.editPost = action.payload;
+      state.isEdit = true;
     },
     clearPostDetails: (state) => {
       state.editPost = {};
+      state.isEdit = false;
     },
     sortByPosts: (state, action) => {
       state.sortBy = action.payload;

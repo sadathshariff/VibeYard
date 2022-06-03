@@ -32,17 +32,26 @@ export const FollowBar = () => {
       <div className={`${styles.followbar_container}`}>
         <h3>Suggestions</h3>
         <ul className="list">
-          {trimPeople?.map((peer) => (
-            <li key={peer.id} className={`${styles.user_info}`}>
-              <Avatar alt={peer?.data?.userName} />
-              <Link to={`/user/${peer?.data?.userName}`}>
-                <p>{peer?.data?.userName}</p>
-              </Link>
-              <Button variant="contained" onClick={() => handleFollow(peer)}>
-                Follow
-              </Button>
-            </li>
-          ))}
+          {trimPeople?.length !== 0 ? (
+            <>
+              {trimPeople?.map((peer) => (
+                <li key={peer.id} className={`${styles.user_info}`}>
+                  <Avatar alt={peer?.data?.userName} />
+                  <Link to={`/user/${peer?.data?.userName}`}>
+                    <p>{peer?.data?.userName}</p>
+                  </Link>
+                  <Button
+                    variant="contained"
+                    onClick={() => handleFollow(peer)}
+                  >
+                    Follow
+                  </Button>
+                </li>
+              ))}{" "}
+            </>
+          ) : (
+            <h4>No More Suggestions</h4>
+          )}
         </ul>
       </div>
     </>
