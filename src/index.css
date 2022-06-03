@@ -2,6 +2,7 @@
 
 html {
   scroll-behavior: smooth;
+  height: 100%;
 }
 body {
   color: var(--text-color);
@@ -13,7 +14,6 @@ body {
     #e1306c,
     #ee9d9d
   );
-  /* overflow: hidden; */
   color: #fff;
 }
 

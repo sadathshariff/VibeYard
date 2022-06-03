@@ -91,7 +91,9 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                         }}
                       >
                         <Avatar alt={peer.userName} />
-                        <p>{peer.userName}</p>
+                        <Link to={`/user/${peer.userName}`}>
+                          <p onClick={handleClose}>{peer.userName}</p>
+                        </Link>
                         {peer.userId === token ? (
                           <Button variant="outlined">Follows You</Button>
                         ) : (

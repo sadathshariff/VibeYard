@@ -1,4 +1,11 @@
-import { Header, SideNav, FollowBar, Card, BottomNav } from "components";
+import {
+  Header,
+  SideNav,
+  FollowBar,
+  Card,
+  BottomNav,
+  ModalComp,
+} from "components";
 import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 export const Bookmark = () => {
@@ -15,6 +22,7 @@ export const Bookmark = () => {
         <SideNav />
         <main className="main_container">
           <h1>All your BookMarked Posts</h1>
+          <ModalComp removeText={true} />
           {bookmarkedPost.length > 0 ? (
             <>
               {bookmarkedPost?.map((post) => (

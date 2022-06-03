@@ -36,8 +36,11 @@
   overflow-y: scroll;
 }
 
-@media screen and (max-width: 360px) {
+@media screen and (max-width: 420px) {
   .card_icons {
     padding: 0 3px;
+  }
+  .card_icons_div {
+    justify-content: space-evenly;
   }
 }

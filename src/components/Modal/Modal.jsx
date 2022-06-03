@@ -1,5 +1,5 @@
 import styles from "./Modal.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
@@ -30,10 +30,10 @@ const style = {
   fontFamily: "Nunito",
 };
 
-export const ModalComp = () => {
+export const ModalComp = ({ removeText }) => {
   const { user } = useSelector((store) => store.user);
   const { isOpen } = useSelector((store) => store.modal);
-  const { editPost, allPosts } = useSelector((store) => store.allPosts);
+  const { editPost, allPosts, isEdit } = useSelector((store) => store.allPosts);
   const isPostAlreadyPresent = allPosts.some((post) => post.id === editPost.id);
   const [input, setInput] = useState("");
   const userId = localStorage.getItem("userToken");
@@ -88,12 +88,22 @@ export const ModalComp = () => {
     dispatch(closeModal());
     dispatch(clearPostDetails());
   };
+
+  const editPostContent = () => {
+    isEdit ? setInput(editPost?.data?.text) : setInput("");
+  };
+  useEffect(() => {
+    editPostContent();
+  }, [isEdit]);
+
   return (
     <>
       <div>
-        <h2 className={`${styles.modal_heading}`}>
-          <FiPlusCircle onClick={handleOpen} /> What's vibing?
-        </h2>
+        {!removeText && (
+          <h2 className={`${styles.modal_heading}`}>
+            <FiPlusCircle onClick={handleOpen} /> What's vibing?
+          </h2>
+        )}
         <Modal
           open={isOpen}
           onClose={handleClose}

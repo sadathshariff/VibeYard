@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 export const Followers = ({ open, handleClose, isOtherUser }) => {
   const { user, otherUser, token } = useSelector((store) => store.user);
   const dispatch = useDispatch();
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -108,7 +109,10 @@ export const Followers = ({ open, handleClose, isOtherUser }) => {
                         }}
                       >
                         <Avatar alt={peer.userName} />
-                        <p>{peer.userName}</p>
+                        <Link to={`/user/${peer?.userName}`}>
+                          <p onClick={handleClose}>{peer.userName}</p>
+                        </Link>
+
                         {peer.userId === token ? (
                           <Button variant="outlined">Following </Button>
                         ) : (

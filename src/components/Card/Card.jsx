@@ -185,7 +185,7 @@ export const Card = ({ posts }) => {
           {text}
         </Typography>
 
-        <div className="flex">
+        <div className="flex card_icons_div">
           <div className={`${styles.card_icons}`}>
             {isLiked ? (
               <p onClick={() => removeLike()} className="flex-center">
