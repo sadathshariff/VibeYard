@@ -17,11 +17,13 @@ const userSlice = createSlice({
   reducers: {
     setUserId: (state, action) => {
       state.userId = action.payload;
+      state.token = action.payload;
     },
     logout: (state) => {
       signOut(auth);
       localStorage.removeItem("userToken");
       state.user = {};
+      state.otherUser = {};
     },
     setOtherUser: (state, action) => {
       state.otherUser = action.payload;
