@@ -4,7 +4,6 @@
 }
 .container {
   display: flex;
-  /* border: 1px solid blue; */
 }
 .main_container {
   flex-grow: 1;
@@ -13,7 +12,6 @@
   border-radius: 5px;
   padding: 0.5rem 1rem;
   overflow-y: scroll;
-  /* border: 1px solid red; */
 }
 
 .main_container::-webkit-scrollbar {
