@@ -136,7 +136,7 @@ export const Card = ({ posts }) => {
     <>
       <div className={`${styles.card_container}`}>
         <div className={`${styles.card_header}`}>
-          <Avatar alt="User Profile" src="/static/images/avatar/1.jpg" />
+          <Avatar alt="User Profile" />
           <Box
             sx={{
               display: "flex",

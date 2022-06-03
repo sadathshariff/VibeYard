@@ -24,7 +24,7 @@
 .bottomNav_container {
   display: none;
 }
-@media screen and (max-width: 760px) {
+@media screen and (max-width: 860px) {
   .container {
     max-width: 100%;
   }
@@ -32,7 +32,7 @@
     display: block;
   }
   .main_container {
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
     height: 70vh;
   }
 }
