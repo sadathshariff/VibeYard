@@ -1,70 +1,68 @@
-# Getting Started with Create React App
+<div align="center">
+  
+# VibeYard
+  Social Media to connect and vibe with people
+</div>
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+### Live Link
 
-## Available Scripts
+## [VibeYard](https://vibe-yard.vercel.app/)
 
-In the project directory, you can run:
+## **How to install and run locally ?**
 
-### `npm start`
+```
+$ git clone https://github.com/sadathshariff/VibeYard.git
+$ cd VibeYard
+$ npm install
+$ npm start
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## Features
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Feed Page
+- Explore Page
+- Filter Post By Trending,Latest and Oldest
+- Profile Page of User
+- Profile Page of other users
+- Followers and Following
+- Edit User Profile
+- Edit Post
+- Bookmark Page
+- Like, Comment and Bookmark post
+- Suggestions of other User
+- Search user
+- Authentication
+  - SignUp
+  - SignIn
 
-### `npm test`
+## Technologies used
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- ReactJs
+- Redux
+- Firebase
 
-### `npm run build`
+## Screenshots
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Signup Page
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+![Signup vibe](https://user-images.githubusercontent.com/51914072/171987223-2f2543f2-e3c0-40a4-bf86-9036cce80591.PNG)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### FeedPage
 
-### `npm run eject`
+![FeedPage](https://user-images.githubusercontent.com/51914072/171987073-47915dc5-c9b0-483a-8b93-48c58a5730d2.PNG)
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Explore Page
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+![Explore](https://user-images.githubusercontent.com/51914072/171987091-379a5d05-d4ab-4f2d-98af-fda881a6dea7.PNG)
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+### PostModal
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+![PostModal](https://user-images.githubusercontent.com/51914072/171987134-c99c9178-7c0a-452e-b0ae-60bcdc20b4c7.PNG)
 
-## Learn More
+### ProfilePage
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+![Profile](https://user-images.githubusercontent.com/51914072/171987156-09fc2e3d-062d-40ee-a036-1fae2f57ee26.PNG)
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Followers Modal
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+![Followers](https://user-images.githubusercontent.com/51914072/171987180-6a6b17ef-f0b1-4833-8756-9c958abd141d.PNG))
