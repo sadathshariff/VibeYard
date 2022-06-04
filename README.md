@@ -65,4 +65,4 @@ $ npm start
 
 ### Followers Modal
 
-![Followers](https://user-images.githubusercontent.com/51914072/171987180-6a6b17ef-f0b1-4833-8756-9c958abd141d.PNG))
+![Followers](https://user-images.githubusercontent.com/51914072/171987180-6a6b17ef-f0b1-4833-8756-9c958abd141d.PNG)
