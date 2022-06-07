@@ -1,22 +1,15 @@
 import styles from "./Header.module.css";
 import Avatar from "@mui/material/Avatar";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useState } from "react";
-import Popover from "@mui/material/Popover";
-import Button from "@mui/material/Button";
-import { signOut } from "firebase/auth";
-import { auth } from "firebase.js";
-import { useDispatch, useSelector } from "react-redux";
-import { openToast } from "redux/features/toastSlice";
+import { useSelector } from "react-redux";
 import Typography from "@mui/material/Typography";
 import { Box } from "@mui/system";
 export const Header = () => {
-  const [user, setUser] = useState("");
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [searchUser, setSearchUser] = useState("");
 
   const { allusers } = useSelector((store) => store.allUsers);
-  const { token } = useSelector((store) => store.user);
+  const { user, token } = useSelector((store) => store.user);
   const debounce = (cb, delay = 1000) => {
     let timer;
     return (...args) => {
@@ -26,12 +19,12 @@ export const Header = () => {
       }, delay);
     };
   };
-  const debounceText = debounce((text) => setUser(text));
+  const debounceText = debounce((text) => setSearchUser(text));
   const filteredUsers = allusers.filter((item) => {
     return Object.values(item.data.userName)
       .join("")
       .toLowerCase()
-      .includes(user.toLowerCase());
+      .includes(searchUser.toLowerCase());
   });
 
   const handleChange = (e) => {
@@ -50,10 +43,10 @@ export const Header = () => {
           type="search"
           className={`${styles.input_text}`}
           placeholder="Search user!"
-          defaultValue={user}
+          defaultValue={searchUser}
           onChange={(e) => handleChange(e)}
         />
-        {user && filteredUsers?.length !== 0 && (
+        {searchUser && filteredUsers?.length !== 0 && (
           <Box
             sx={{
               width: "max-content",
@@ -75,11 +68,11 @@ export const Header = () => {
                 key={peer.id}
                 sx={{
                   display: "flex",
-                  justifyContent: "space-around",
+                  justifyContent: "space-between",
                   alignItems: "center",
                 }}
               >
-                <Avatar alt={peer?.data?.userName} />
+                <Avatar alt={peer?.data?.userName} src={peer?.data?.photoUrl} />
                 {peer?.id === token ? (
                   <Link to={`/profile`}>
                     <Typography
@@ -87,6 +80,7 @@ export const Header = () => {
                       gutterBottom
                       component="p"
                       sx={{ fontWeight: 500, px: 1, fontFamily: "Nunito" }}
+                      className={`${styles.userName}`}
                     >
                       {peer?.data?.userName}
                     </Typography>
@@ -110,7 +104,11 @@ export const Header = () => {
       </div>
 
       <div className={`${styles.user_avatar}`}>
-        <Avatar alt="User Profile" sx={{ cursor: "pointer" }} />
+        <Avatar
+          alt="User Profile"
+          src={user?.photoUrl}
+          sx={{ cursor: "pointer" }}
+        />
       </div>
     </header>
   );
