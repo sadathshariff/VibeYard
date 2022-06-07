@@ -36,9 +36,14 @@ export const FollowBar = () => {
             <>
               {trimPeople?.map((peer) => (
                 <li key={peer.id} className={`${styles.user_info}`}>
-                  <Avatar alt={peer?.data?.userName} />
+                  <Avatar
+                    src={peer?.data?.photoUrl}
+                    alt={peer?.data?.userName}
+                  />
                   <Link to={`/user/${peer?.data?.userName}`}>
-                    <p>{peer?.data?.userName}</p>
+                    <p className={`${styles.userName}`}>
+                      {peer?.data?.userName}
+                    </p>
                   </Link>
                   <Button
                     variant="contained"
@@ -47,7 +52,7 @@ export const FollowBar = () => {
                     Follow
                   </Button>
                 </li>
-              ))}{" "}
+              ))}
             </>
           ) : (
             <h4>No More Suggestions</h4>

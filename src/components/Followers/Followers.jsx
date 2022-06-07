@@ -51,7 +51,7 @@ export const Followers = ({ open, handleClose, isOtherUser }) => {
                           alignItems: "center",
                         }}
                       >
-                        <Avatar alt={person.userName} />
+                        <Avatar alt={person.userName} src={person.photoUrl} />
                         <Link to={`/user/${person.userName}`}>
                           <p>{person.userName}</p>
                         </Link>
@@ -109,7 +109,7 @@ export const Followers = ({ open, handleClose, isOtherUser }) => {
                           alignItems: "center",
                         }}
                       >
-                        <Avatar alt={peer.userName} />
+                        <Avatar alt={peer.userName} src={peer.photoUrl} />
                         <Link to={`/user/${peer?.userName}`}>
                           <p onClick={handleClose}>{peer.userName}</p>
                         </Link>
