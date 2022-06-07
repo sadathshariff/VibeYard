@@ -5,7 +5,6 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BsBookmark } from "react-icons/bs";
 import { GoComment } from "react-icons/go";
 import { FaHeart, FaBookmark } from "react-icons/fa";
-import { MdMoreVert } from "react-icons/md";
 import { Button, Box } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { Link } from "react-router-dom";
@@ -18,13 +17,17 @@ import { getAllPosts, getLoggedInUserData } from "firebaseMethods";
 import { openToast } from "redux/features/toastSlice";
 export const Card = ({ posts }) => {
   const { id } = posts;
-  const { userName, text, timeStamp, comments, likes, userId } = posts.data;
+  const { userName, text, timeStamp, comments, likes, userId, image } =
+    posts.data;
 
   const time = new Date(timeStamp.seconds * 1000).toLocaleDateString();
   const [showComments, setShowComments] = useState(false);
   const [commentText, setCommentText] = useState("");
 
   const { user } = useSelector((store) => store.user);
+  const { allusers } = useSelector((store) => store.allUsers);
+
+  const cardProfile = allusers?.find((user) => user.id === userId);
 
   const token = localStorage.getItem("userToken");
   const isLiked = likes?.some((post) => post.userId === token);
@@ -151,7 +154,7 @@ export const Card = ({ posts }) => {
     <>
       <div className={`${styles.card_container}`}>
         <div className={`${styles.card_header}`}>
-          <Avatar alt="User Profile" />
+          <Avatar alt="User Profile" src={cardProfile?.data?.photoUrl} />
           <Box
             sx={{
               display: "flex",
@@ -199,9 +202,12 @@ export const Card = ({ posts }) => {
         >
           {text}
         </Typography>
+        <Box sx={{ width: "30%", margin: "auto" }}>
+          {image && <img src={image} alt="post" />}
+        </Box>
 
-        <div className="flex card_icons_div">
-          <div className={`${styles.card_icons}`}>
+        <ul className={`${styles.icons_list}`}>
+          <li className={`${styles.card_icons}`}>
             {isLiked ? (
               <p onClick={() => removeLike()} className="flex-center">
                 <FaHeart fill="red" />
@@ -218,16 +224,18 @@ export const Card = ({ posts }) => {
                 </p>
               </>
             )}
-          </div>
+          </li>
 
-          <div
+          <li
             className={`${styles.card_icons}`}
             onClick={() => setShowComments((prev) => !prev)}
           >
-            <GoComment />
-            <p>Comments</p>
-          </div>
-          <div className={`${styles.card_icons}`}>
+            <p className="flex-center">
+              <GoComment />
+              <span>{comments?.length}Comments</span>
+            </p>
+          </li>
+          <li className={`${styles.card_icons}`}>
             {isBookmarked ? (
               <p onClick={() => removeFromBookmark()} className="flex-center">
                 <FaBookmark />
@@ -239,8 +247,8 @@ export const Card = ({ posts }) => {
                 Bookmark
               </p>
             )}
-          </div>
-        </div>
+          </li>
+        </ul>
 
         {showComments && (
           <>
