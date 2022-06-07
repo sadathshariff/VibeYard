@@ -4,7 +4,7 @@ import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
 import Modal from "@mui/material/Modal";
 import { FiPlusCircle } from "react-icons/fi";
-import { db } from "firebase.js";
+import { db, storage } from "firebase.js";
 import {
   addDoc,
   collection,
@@ -17,7 +17,12 @@ import { getAllPosts } from "firebaseMethods";
 import { openModal, closeModal } from "redux/features/modal/modalSlice";
 import { clearPostDetails } from "redux/features/allPosts/allPostslice";
 import { openToast } from "redux/features/toastSlice";
-// import { setIn } from "formik";
+import IconButton from "@mui/material/IconButton";
+import { FcOldTimeCamera } from "react-icons/fc";
+import { MdEmojiEmotions } from "react-icons/md";
+import { Input } from "@mui/material";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import Picker from "emoji-picker-react";
 
 const style = {
   position: "absolute",
@@ -36,21 +41,39 @@ export const ModalComp = ({ removeText }) => {
   const { isOpen } = useSelector((store) => store.modal);
   const { editPost, allPosts, isEdit } = useSelector((store) => store.allPosts);
   const isPostAlreadyPresent = allPosts.some((post) => post.id === editPost.id);
-  const [input, setInput] = useState("");
+  const [file, setFile] = useState("");
+  const initialData = {
+    input: "",
+    image: "",
+  };
+  const [form, setForm] = useState(initialData);
   const userId = localStorage.getItem("userToken");
+  const [showEmoji, setShowEmoji] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
   const dispatch = useDispatch();
+  const onEmojiClick = (event, emojiObject) => {
+    setChosenEmoji(emojiObject);
+  };
+
+  useEffect(() => {
+    setForm({
+      ...form,
+      input: form.input + (chosenEmoji ? chosenEmoji.emoji.toString() : ""),
+    });
+  }, [chosenEmoji]);
 
   const handlePost = async () => {
     try {
-      if (input !== "") {
+      if (form.input !== "") {
         await addDoc(collection(db, "posts"), {
           userName: user?.userName,
-          text: input,
+          text: form.input,
           timeStamp: serverTimestamp(),
           userId: userId,
+          image: form.image,
         });
       }
-      setInput("");
+      setForm(initialData);
       dispatch(getAllPosts());
       handleClose();
     } catch (error) {
@@ -62,17 +85,71 @@ export const ModalComp = ({ removeText }) => {
       );
     }
   };
+
+  useEffect(() => {
+    const uploadFile = () => {
+      const name = new Date().getTime() + file.name;
+      const storageRef = ref(storage, `/posts/` + name);
+      const uploadTask = uploadBytesResumable(storageRef, file);
+
+      uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+          const progress =
+            (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+          switch (snapshot.state) {
+            case "paused":
+              break;
+            case "running":
+              break;
+            default:
+              break;
+          }
+        },
+        (error) => {
+          switch (error.code) {
+            case "storage/unauthorized":
+              // User doesn't have permission to access the object
+              dispatch(
+                openToast({ message: "you don't have access", type: "warning" })
+              );
+              break;
+            case "storage/canceled":
+              // User canceled the upload
+              dispatch(
+                openToast({ message: "you canceled the upload", type: "info" })
+              );
+              break;
+            case "storage/unknown":
+              dispatch(
+                openToast({ message: "Something went wrong", type: "error" })
+              );
+              break;
+            default:
+              break;
+          }
+        },
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+            setForm((prev) => ({ ...prev, image: downloadURL }));
+          });
+        }
+      );
+    };
+    file && uploadFile();
+  }, [file]);
   const handleEdit = async () => {
     try {
-      if (input !== "") {
+      if (form.input !== "") {
         await updateDoc(doc(db, "posts", editPost.id), {
           userName: user?.userName,
-          text: input,
+          text: form.input,
           timeStamp: serverTimestamp(),
           userId: userId,
+          image: form.image,
         });
       }
-      setInput("");
+      setForm(initialData);
       dispatch(getAllPosts());
       handleClose();
     } catch (error) {
@@ -98,10 +175,18 @@ export const ModalComp = ({ removeText }) => {
   const handleClose = () => {
     dispatch(closeModal());
     dispatch(clearPostDetails());
+    setForm(initialData);
+    setShowEmoji(false);
   };
 
   const editPostContent = () => {
-    isEdit ? setInput(editPost?.data?.text) : setInput("");
+    isEdit
+      ? setForm({
+          ...form,
+          input: editPost?.data?.text,
+          image: editPost?.data?.image,
+        })
+      : setForm(initialData);
   };
   useEffect(() => {
     editPostContent();
@@ -129,19 +214,79 @@ export const ModalComp = ({ removeText }) => {
                   className={`${styles.modal_text}`}
                   tabIndex="0"
                   placeholder="Start Writing...."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
+                  value={form.input}
+                  onChange={(e) => setForm({ ...form, input: e.target.value })}
                 />
+                {form?.image && (
+                  <Box sx={{ width: "30%", margin: "1rem auto" }}>
+                    <img src={form?.image} alt="post" />
+                  </Box>
+                )}
               </div>
               <div className={`${styles.modal_btn_div}`}>
+                <Box
+                  sx={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  }}
+                >
+                  <label htmlFor="icon-button-file">
+                    <Input
+                      accept="image/*"
+                      id="icon-button-file"
+                      type="file"
+                      sx={{ display: "none" }}
+                      onChange={(e) => setFile(e.target.files[0])}
+                    />
+                    <IconButton
+                      color="primary"
+                      aria-label="upload picture"
+                      component="span"
+                    >
+                      <FcOldTimeCamera size={30} />
+                    </IconButton>
+                  </label>
+                  <MdEmojiEmotions
+                    size={30}
+                    color="black"
+                    cursor="pointer"
+                    onClick={() => setShowEmoji(!showEmoji)}
+                  />
+                  {showEmoji && (
+                    <Box
+                      sx={{ position: "absolute", left: "1rem", top: "3rem" }}
+                    >
+                      <Picker
+                        onEmojiClick={onEmojiClick}
+                        disableSearchBar={true}
+                        pickerStyle={{ height: "10rem", width: "15rem" }}
+                      />
+                    </Box>
+                  )}
+                </Box>
                 {isPostAlreadyPresent ? (
-                  <Button variant="contained" color="success" type="submit">
-                    Update
-                  </Button>
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      type="submit"
+                      fullwidth="true"
+                    >
+                      Update
+                    </Button>
+                  </div>
                 ) : (
-                  <Button variant="contained" color="success" type="submit">
-                    Post
-                  </Button>
+                  <div>
+                    <Button
+                      variant="contained"
+                      color="success"
+                      type="submit"
+                      fullwidth="true"
+                    >
+                      Post
+                    </Button>
+                  </div>
                 )}
               </div>
             </form>

@@ -22,7 +22,9 @@
 }
 .modal_btn_div {
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
 @media screen and (max-width: 900px) {

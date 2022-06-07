@@ -46,7 +46,11 @@ export const Profile = () => {
                 p: 2,
               }}
             >
-              <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
+              <Avatar
+                alt="User Profile"
+                src={user.photoUrl}
+                sx={{ width: 110, height: 110 }}
+              />
               <h2>{user?.userName}</h2>
               <Box
                 sx={{

@@ -57,7 +57,11 @@ export const User = () => {
                 p: 2,
               }}
             >
-              <Avatar alt="User Profile" sx={{ width: 86, height: 86 }} />
+              <Avatar
+                alt="User Profile"
+                src={otherUser?.data?.photoUrl}
+                sx={{ width: 86, height: 86 }}
+              />
               <h2>{otherUser?.data?.userName}</h2>
               <Box as="div">
                 {isFollowing ? (

@@ -6,7 +6,6 @@
   flex-direction: column;
   width: 25rem;
   margin: 0 0.5rem;
-  /* background-color: white; */
   border-radius: 5px;
 }
 
@@ -16,6 +15,13 @@
   justify-content: space-between;
   font-weight: 500;
 }
+.userName {
+  white-space: nowrap;
+  width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+}
 .follow {
   color: var(--primary-color);
   cursor: pointer;
@@ -24,7 +30,7 @@ Button {
   width: 50%;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 760px) {
   .followbar_container {
     display: none;
   }

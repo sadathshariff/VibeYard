@@ -49,7 +49,7 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                           alignItems: "center",
                         }}
                       >
-                        <Avatar alt={peer.userName} />
+                        <Avatar alt={peer.userName} src={peer?.photoUrl} />
                         <Link to={`/user/${peer.userName}`}>
                           <p>{peer.userName}</p>
                         </Link>
@@ -91,7 +91,7 @@ export const Following = ({ open, handleClose, isOtherUser }) => {
                           alignItems: "center",
                         }}
                       >
-                        <Avatar alt={peer.userName} />
+                        <Avatar alt={peer.userName} src={peer.photoUrl} />
                         <Link to={`/user/${peer.userName}`}>
                           <p onClick={handleClose}>{peer.userName}</p>
                         </Link>

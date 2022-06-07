@@ -27,7 +27,13 @@
   margin: 1rem;
   padding: 0.5rem;
 }
-
+.userName {
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding: 0 0.5rem;
+}
 @media screen and (max-width: 900px) {
   .input_search_div {
     width: 100%;
