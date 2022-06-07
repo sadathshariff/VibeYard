@@ -98,12 +98,14 @@ export const followUser = async (user, id, peerId, peerData, dispatch) => {
       following: arrayUnion({
         userId: peerId,
         userName: peerData?.userName,
+        photoUrl: peerData?.photoUrl,
       }),
     });
     await updateDoc(peerFollowerRef, {
       followers: arrayUnion({
         userId: id,
         userName: user?.userName,
+        photoUrl: user?.photoUrl,
       }),
     });
     dispatch(getLoggedInUserData(id));
@@ -132,12 +134,14 @@ export const unFollowUser = async (user, id, peerId, peerData, dispatch) => {
       following: arrayRemove({
         userId: peerId,
         userName: peerData?.userName,
+        photoUrl: peerData?.photoUrl,
       }),
     });
     await updateDoc(peerFollowerRef, {
       followers: arrayRemove({
         userId: id,
         userName: user?.userName,
+        photoUrl: user?.photoUrl,
       }),
     });
     dispatch(getLoggedInUserData(id));
