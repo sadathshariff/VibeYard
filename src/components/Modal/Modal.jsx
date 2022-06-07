@@ -254,7 +254,9 @@ export const ModalComp = ({ removeText }) => {
                     onClick={() => setShowEmoji(!showEmoji)}
                   />
                   {showEmoji && (
-                    <Box sx={{ position: "absolute", left: "1rem" }}>
+                    <Box
+                      sx={{ position: "absolute", left: "1rem", top: "3rem" }}
+                    >
                       <Picker
                         onEmojiClick={onEmojiClick}
                         disableSearchBar={true}
