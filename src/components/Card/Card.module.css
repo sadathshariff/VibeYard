@@ -11,6 +11,12 @@
   align-items: center;
 }
 
+.icons_list {
+  display: flex;
+  align-items: center;
+  padding-inline-start: 0;
+  margin-bottom: 0;
+}
 .card_icons {
   display: flex;
   align-items: center;
@@ -40,7 +46,7 @@
   .card_icons {
     padding: 0 3px;
   }
-  .card_icons_div {
+  .icons_list {
     justify-content: space-evenly;
   }
 }
