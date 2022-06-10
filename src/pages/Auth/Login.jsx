@@ -79,6 +79,35 @@ export const Login = () => {
     }
   };
 
+  const handleGuestLogin = async () => {
+    try {
+      const result = await signInWithEmailAndPassword(
+        auth,
+        "sadath@dev.com",
+        "sadath12345"
+      );
+      dispatch(
+        openToast({
+          message: `Login Successful, Welcome ${result.user.email}`,
+          type: "success",
+        })
+      );
+      dispatch(setUserId(result.user.uid));
+      dispatch(getLoggedInUserData(result.user.uid));
+      localStorage.setItem("userToken", result.user.uid);
+      if (result.user) {
+        navigate("/feed", { replace: true });
+      }
+    } catch (error) {
+      dispatch(
+        openToast({
+          message: "Some error occured, please try again later.",
+          type: "error",
+        })
+      );
+    }
+  };
+
   const onSubmit = (values, actions) => {
     handleLogin(values.email, values.password);
     actions.resetForm();
@@ -130,6 +159,15 @@ export const Login = () => {
             <div className="form-button-divs">
               <Button type="submit" variant="contained" fullWidth>
                 Login
+              </Button>
+              <Button
+                variant="contained"
+                color="success"
+                fullWidth
+                onClick={() => handleGuestLogin()}
+                sx={{ my: 1 }}
+              >
+                Guest Login
               </Button>
             </div>
           </form>
