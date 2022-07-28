@@ -104,11 +104,13 @@ export const Header = () => {
       </div>
 
       <div className={`${styles.user_avatar}`}>
-        <Avatar
-          alt="User Profile"
-          src={user?.photoUrl}
-          sx={{ cursor: "pointer" }}
-        />
+        <Link to={`/profile`}>
+          <Avatar
+            alt="User Profile"
+            src={user?.photoUrl}
+            sx={{ cursor: "pointer" }}
+          />
+        </Link>
       </div>
     </header>
   );
