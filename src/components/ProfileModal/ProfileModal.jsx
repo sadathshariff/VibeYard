@@ -15,10 +15,11 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 export const ProfileModal = ({ open, handleCloseModal }) => {
   const { token, user } = useSelector((store) => store.user);
+
   const initialData = {
-    photoUrl: "",
-    website: "",
-    bio: "",
+    photoUrl: user?.photoUrl,
+    website: user?.website,
+    bio: user?.bio,
   };
   const [userInfo, setUserInfo] = useState(initialData);
   const [file, setFile] = useState("");
